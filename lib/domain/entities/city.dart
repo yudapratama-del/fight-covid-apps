@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class CityModel extends Equatable {
-  CityModel({
+class City extends Equatable {
+  City({
     required this.id,
     required this.name,
   });
@@ -9,7 +9,7 @@ class CityModel extends Equatable {
   final String id;
   final String name;
 
-  factory CityModel.fromJson(Map<String, dynamic> json) => CityModel(
+  factory City.fromJson(Map<String, dynamic> json) => City(
         id: json["id"],
         name: json["name"],
       );
