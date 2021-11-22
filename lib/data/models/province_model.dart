@@ -1,7 +1,8 @@
+import 'package:capstone_apps/domain/entities/province.dart';
 import 'package:equatable/equatable.dart';
 
-class Province extends Equatable {
-  Province({
+class ProvinceModel extends Equatable {
+  ProvinceModel({
     required this.id,
     required this.name,
   });
@@ -9,7 +10,7 @@ class Province extends Equatable {
   final String id;
   final String name;
 
-  factory Province.fromJson(Map<String, dynamic> json) => Province(
+  factory ProvinceModel.fromJson(Map<String, dynamic> json) => ProvinceModel(
         id: json["id"],
         name: json["name"],
       );
@@ -18,6 +19,11 @@ class Province extends Equatable {
         "id": id,
         "name": name,
       };
+
+  Province toEntity() => Province(
+        id: id,
+        name: name,
+      );
 
   @override
   List<Object> get props => [id, name];
