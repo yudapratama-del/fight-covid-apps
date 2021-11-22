@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:capstone_apps/data/models/profince_model.dart';
+import 'package:capstone_apps/data/models/province_model.dart';
 
 ProvinceResponse provinceResponseFromJson(String str) =>
     ProvinceResponse.fromJson(json.decode(str));
