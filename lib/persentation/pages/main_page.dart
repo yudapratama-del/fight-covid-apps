@@ -49,6 +49,7 @@ class MainPage extends StatelessWidget {
     ];
 
     return Scaffold(
+      backgroundColor: kLightGreen,
       body: SafeArea(child: screens[selectedTab.currentIndex]),
       bottomNavigationBar: _buildBottomNavBar(
         bottomNavBarNotifier: selectedTab,
