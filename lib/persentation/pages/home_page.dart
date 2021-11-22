@@ -2,7 +2,6 @@ import 'package:capstone_apps/common/constants.dart';
 import 'package:capstone_apps/common/state_enum.dart';
 import 'package:capstone_apps/persentation/providers/covid_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
