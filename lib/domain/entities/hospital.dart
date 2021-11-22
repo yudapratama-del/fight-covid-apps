@@ -11,13 +11,13 @@ class Hospital extends Equatable {
     required this.info,
   });
 
-  final String id;
-  final String name;
-  final String address;
-  final String phone;
-  final int queue;
-  final int bedAvailability;
-  final String info;
+  final String? id;
+  final String? name;
+  final String? address;
+  final String? phone;
+  final int? queue;
+  final int? bedAvailability;
+  final String? info;
 
   factory Hospital.fromJson(Map<String, dynamic> json) => Hospital(
         id: json["id"],
@@ -40,6 +40,15 @@ class Hospital extends Equatable {
       };
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props {
+    return [
+      id,
+      name,
+      address,
+      phone,
+      queue,
+      bedAvailability,
+      info,
+    ];
+  }
 }
