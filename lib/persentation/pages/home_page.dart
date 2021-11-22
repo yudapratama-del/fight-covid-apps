@@ -176,6 +176,47 @@ class HomePage extends StatelessWidget {
       );
     }
 
+    Widget InformationSection(BuildContext context) {
+      Widget InformarionListItem(String text, String subtitle, String image) {
+        return Container(
+          padding: EdgeInsets.symmetric(vertical: 7),
+          margin: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: kLightGreen,
+              width: 1,
+            ),
+          ),
+          child: InkWell(
+            child: ListTile(
+              leading: CircleAvatar(radius: 20, backgroundImage: AssetImage(image)),
+              trailing: Icon(Icons.keyboard_arrow_right_rounded),
+              title: Text(text, style: kSubtitle,),
+              subtitle: Text(subtitle, style: kBodyText,),
+            ),
+            onTap: () {
+              print("Tapped on container");
+            },
+          ),
+        );
+      }
+
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(margin: EdgeInsets.only(left: 20, top: 10), child: Text("Information List",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),)),
+          InformarionListItem(
+              "Rumah Sakit Rujukan Covid",
+              "lihat daftar rumah sakit rujukan di kotamu",
+              "assets/images/hospital_illustration.png"),
+          InformarionListItem("Berita Kesehatan Indonesia", "lihat berita kesehatan di Indonesia",
+              "assets/images/news_illustration.png"),
+        ],
+      );
+    }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -185,7 +226,7 @@ class HomePage extends StatelessWidget {
             HomePageHeader(context),
             CovidDataSection(context),
             HomePageBanner(context),
-            // InformationSection(context),
+            InformationSection(context),
           ],
         ),
       ),
