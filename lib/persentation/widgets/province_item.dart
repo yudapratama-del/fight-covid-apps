@@ -1,9 +1,16 @@
 import 'package:capstone_apps/common/constants.dart';
+import 'package:capstone_apps/domain/entities/province.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ProvinceItem extends StatelessWidget {
-  const ProvinceItem({Key? key}) : super(key: key);
+  final Function onTap;
+  final Province province;
+  const ProvinceItem({
+    Key? key,
+    required this.onTap,
+    required this.province,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +28,11 @@ class ProvinceItem extends StatelessWidget {
         child: Row(
           children: [
             CircleAvatar(
-                radius: 20, backgroundImage: AssetImage("assets/images/place_illustration.png")),
+              radius: 20,
+              backgroundImage: AssetImage(
+                "assets/images/place_illustration.png",
+              ),
+            ),
             SizedBox(
               width: 14,
             ),
@@ -30,7 +41,7 @@ class ProvinceItem extends StatelessWidget {
               children: [
                 Text("Provinsi"),
                 Text(
-                  "Jawa Timur",
+                  province.name,
                   style: kHeading6.copyWith(fontWeight: FontWeight.w600),
                 )
               ],
@@ -39,7 +50,7 @@ class ProvinceItem extends StatelessWidget {
         ),
       ),
       onTap: () {
-        print("Tapped on container");
+        onTap();
       },
     );
   }

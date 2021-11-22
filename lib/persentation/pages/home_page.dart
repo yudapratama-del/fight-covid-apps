@@ -1,5 +1,6 @@
 import 'package:capstone_apps/common/constants.dart';
 import 'package:capstone_apps/common/state_enum.dart';
+import 'package:capstone_apps/persentation/pages/province_list_page.dart';
 import 'package:capstone_apps/persentation/providers/covid_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -285,7 +286,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget InformationSection(BuildContext context) {
-    Widget InformarionListItem(String text, String subtitle, String image) {
+    Widget InformarionListItem(
+        String text, String subtitle, String image, Function onTap) {
       return Container(
         padding: EdgeInsets.symmetric(vertical: 7),
         margin: EdgeInsets.all(10),
@@ -311,7 +313,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           onTap: () {
-            print("Tapped on container");
+            onTap();
           },
         ),
       );
@@ -327,13 +329,19 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
             )),
         InformarionListItem(
-            "Rumah Sakit Rujukan Covid",
-            "lihat daftar rumah sakit rujukan di kotamu",
-            "assets/images/hospital_illustration.png"),
+          "Rumah Sakit Rujukan Covid",
+          "lihat daftar rumah sakit rujukan di kotamu",
+          "assets/images/hospital_illustration.png",
+          () {
+            Navigator.pushNamed(context, ProvinceListPage.ROUTE_NAME);
+          },
+        ),
         InformarionListItem(
-            "Berita Kesehatan Indonesia",
-            "lihat berita kesehatan di Indonesia",
-            "assets/images/news_illustration.png"),
+          "Berita Kesehatan Indonesia",
+          "lihat berita kesehatan di Indonesia",
+          "assets/images/news_illustration.png",
+          () {},
+        ),
       ],
     );
   }

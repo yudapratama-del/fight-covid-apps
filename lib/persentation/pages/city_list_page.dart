@@ -2,6 +2,7 @@ import 'package:capstone_apps/persentation/widgets/city_item.dart';
 import 'package:flutter/material.dart';
 
 class CityListPage extends StatelessWidget {
+  static const ROUTE_NAME = "/city";
   const CityListPage({Key? key}) : super(key: key);
 
   static List dataTest = [1];

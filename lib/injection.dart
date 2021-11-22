@@ -1,8 +1,13 @@
 import 'package:capstone_apps/data/datasources/covid_remote_data_source.dart';
+import 'package:capstone_apps/data/datasources/location_remote_data_source.dart';
 import 'package:capstone_apps/data/repositories/covid_repository_impl.dart';
+import 'package:capstone_apps/data/repositories/location_repository_impl.dart';
 import 'package:capstone_apps/domain/repositories/covid_repository.dart';
+import 'package:capstone_apps/domain/repositories/location_repository.dart';
 import 'package:capstone_apps/domain/usecases/get_data_covid.dart';
+import 'package:capstone_apps/domain/usecases/get_province.dart';
 import 'package:capstone_apps/persentation/providers/covid_notifier.dart';
+import 'package:capstone_apps/persentation/providers/location_notifier.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,11 +20,21 @@ void init() {
       getDataCovid: getIt(),
     ),
   );
+  getIt.registerFactory(
+    () => LocationNotifier(
+      getProvince: getIt(),
+    ),
+  );
 
   /// Repository
   getIt.registerLazySingleton<CovidRepository>(
     () => CovidRepositoryImpl(
       covidRemoteDataSource: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<LocationRepository>(
+    () => LocationRepositoryImpl(
+      locationRemoteDataSource: getIt(),
     ),
   );
 
@@ -29,9 +44,15 @@ void init() {
       client: getIt(),
     ),
   );
+  getIt.registerLazySingleton<LocationRemoteDataSource>(
+    () => LocationRemoteDataSourceImpl(
+      client: getIt(),
+    ),
+  );
 
   /// Usecase
   getIt.registerLazySingleton(() => GetDataCovid(getIt()));
+  getIt.registerLazySingleton(() => GetProvince(getIt()));
 
   /// External
   getIt.registerLazySingleton(() => http.Client());

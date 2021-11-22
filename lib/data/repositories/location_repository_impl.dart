@@ -7,10 +7,10 @@ import 'package:capstone_apps/domain/entities/province.dart';
 import 'package:capstone_apps/domain/repositories/location_repository.dart';
 import 'package:dartz/dartz.dart';
 
-class ProvinceRepositoryImpl implements LocationRepository {
+class LocationRepositoryImpl implements LocationRepository {
   LocationRemoteDataSource locationRemoteDataSource;
 
-  ProvinceRepositoryImpl({required this.locationRemoteDataSource});
+  LocationRepositoryImpl({required this.locationRemoteDataSource});
 
   @override
   Future<Either<Failure, List<Province>>> getDataProvince() async {
