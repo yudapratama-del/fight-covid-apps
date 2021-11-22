@@ -1,14 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-class PenambahanModel extends Equatable {
-  PenambahanModel({
+class Penambahan extends Equatable {
+  Penambahan({
     required this.tanggal,
   });
 
   final DateTime tanggal;
 
-  factory PenambahanModel.fromJson(Map<String, dynamic> json) =>
-      PenambahanModel(
+  factory Penambahan.fromJson(Map<String, dynamic> json) => Penambahan(
         tanggal: DateTime.parse(json["tanggal"]),
       );
 

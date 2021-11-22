@@ -9,12 +9,12 @@ class UpdateDataCovidModel extends Equatable {
     required this.total,
   });
 
-  final Penambahan penambahan;
+  final PenambahanModel penambahan;
   final DataCountCovidModel total;
 
   factory UpdateDataCovidModel.fromJson(Map<String, dynamic> json) =>
       UpdateDataCovidModel(
-        penambahan: Penambahan.fromJson(json["penambahan"]),
+        penambahan: PenambahanModel.fromJson(json["penambahan"]),
         total: DataCountCovidModel.fromJson(json["total"]),
       );
 
