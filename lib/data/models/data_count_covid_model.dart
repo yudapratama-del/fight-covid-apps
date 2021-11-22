@@ -1,4 +1,3 @@
-import 'package:capstone_apps/domain/entities/data_count_covid_model.dart';
 import 'package:equatable/equatable.dart';
 
 class DataCountCovidModel extends Equatable {
@@ -24,12 +23,6 @@ class DataCountCovidModel extends Equatable {
         "jumlah_sembuh": jumlahSembuh,
         "jumlah_meninggal": jumlahMeninggal,
       };
-
-  DataCountCovid toEntity() => DataCountCovid(
-        jumlahPositif: jumlahPositif,
-        jumlahSembuh: jumlahSembuh,
-        jumlahMeninggal: jumlahMeninggal,
-      );
 
   @override
   List<Object> get props => [jumlahPositif, jumlahSembuh, jumlahMeninggal];
