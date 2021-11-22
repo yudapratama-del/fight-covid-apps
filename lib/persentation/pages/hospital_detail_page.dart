@@ -1,4 +1,5 @@
 import 'package:capstone_apps/common/constants.dart';
+import 'package:capstone_apps/persentation/widgets/hospital_room_item.dart';
 import 'package:flutter/material.dart';
 
 class HospitalDetailPage extends StatelessWidget {
@@ -61,7 +62,15 @@ class HospitalDetailPage extends StatelessWidget {
     );
   }
 
-  
+  Widget RoomList(BuildContext context) {
+    return Expanded(
+      child: ListView.builder(
+          itemCount: dataTest.length,
+          itemBuilder: (BuildContext context, int index) {
+            return HospitalRoomItem();
+          }),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
