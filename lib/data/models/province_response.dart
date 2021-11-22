@@ -1,30 +1,27 @@
 import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
-
 import 'package:capstone_apps/data/models/profince_model.dart';
 
-ProvinceModel provinceModelFromJson(String str) =>
-    ProvinceModel.fromJson(json.decode(str));
+ProvinceResponse provinceResponseFromJson(String str) =>
+    ProvinceResponse.fromJson(json.decode(str));
 
-String provinceModelToJson(ProvinceModel data) => json.encode(data.toJson());
+String provinceResponseToJson(ProvinceResponse data) =>
+    json.encode(data.toJson());
 
-class ProvinceModel extends Equatable {
-  ProvinceModel({
+class ProvinceResponse {
+  ProvinceResponse({
     required this.provinces,
   });
 
-  final List<Province> provinces;
+  List<ProvinceModel> provinces;
 
-  factory ProvinceModel.fromJson(Map<String, dynamic> json) => ProvinceModel(
-        provinces: List<Province>.from(
-            json["provinces"].map((x) => Province.fromJson(x))),
+  factory ProvinceResponse.fromJson(Map<String, dynamic> json) =>
+      ProvinceResponse(
+        provinces: List<ProvinceModel>.from(
+            json["provinces"].map((x) => ProvinceModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "provinces": List<dynamic>.from(provinces.map((x) => x.toJson())),
       };
-
-  @override
-  List<Object> get props => [provinces];
 }
