@@ -130,6 +130,52 @@ class HomePage extends StatelessWidget {
       );
     }
 
+    Widget HomePageBanner(BuildContext context) {
+      return Container(
+        height: 100,
+        margin: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 7,
+              blurRadius: 7,
+              offset: Offset(0, 2),
+            )
+          ],
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [kDeepGreen, kLightGreen],
+          ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            Image.asset("assets/images/banner_image.png"),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Fight Covid 19",
+                  style: kHeading6.copyWith(fontWeight: FontWeight.w600, color: kWhite),
+                ),
+                Text(
+                  "Lawan Covid 19 Bersama",
+                  style: kBodyText.copyWith(color: kWhite),
+                ),
+                Text(
+                  "#FightCovid19",
+                  style: kBodyText.copyWith(color: kWhite),
+                ),
+              ],
+            )
+          ],
+        ),
+      );
+    }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,7 +184,7 @@ class HomePage extends StatelessWidget {
           children: [
             HomePageHeader(context),
             CovidDataSection(context),
-            // HomePageBanner(context),
+            HomePageBanner(context),
             // InformationSection(context),
           ],
         ),
