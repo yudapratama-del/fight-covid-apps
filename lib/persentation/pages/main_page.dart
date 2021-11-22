@@ -19,7 +19,7 @@ class MainPage extends StatelessWidget {
       required BottomNavBarNotifier? bottomNavBarNotifier,
     }) {
       return BottomNavigationBar(
-        selectedItemColor: kPurplePrimary,
+        selectedItemColor: kDeepGreen,
         unselectedItemColor: kGreySecondary,
         currentIndex: bottomNavBarNotifier!.currentIndex,
         onTap: (index) {
