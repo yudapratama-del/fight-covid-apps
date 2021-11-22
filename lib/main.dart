@@ -1,14 +1,18 @@
+import 'package:capstone_apps/common/constants.dart';
+import 'package:capstone_apps/injection.dart' as getIt;
 import 'package:capstone_apps/persentation/pages/bookmark_page.dart';
 import 'package:capstone_apps/persentation/pages/home_page.dart';
 import 'package:capstone_apps/persentation/pages/main_page.dart';
 import 'package:capstone_apps/persentation/pages/profile_page.dart';
 import 'package:capstone_apps/persentation/providers/botttom_navbar_notifer.dart';
+import 'package:capstone_apps/persentation/providers/covid_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
+  getIt.init();
 }
 
 class MyApp extends StatelessWidget {
@@ -17,9 +21,13 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => BottomNavBarNotifier()),
+        ChangeNotifierProvider(
+          create: (_) => CovidNotifier(getDataCovid: getIt.getIt()),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(accentColor: kDeepGreen),
         title: 'Capston Project',
         home: MainPage(),
         onGenerateRoute: (RouteSettings settings) {

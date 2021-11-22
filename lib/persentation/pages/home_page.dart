@@ -1,9 +1,44 @@
 import 'package:capstone_apps/common/constants.dart';
+import 'package:capstone_apps/common/state_enum.dart';
+import 'package:capstone_apps/persentation/providers/covid_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   static const ROUTE_NAME = "/home-page";
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    Future.microtask(
+      () => Provider.of<CovidNotifier>(context, listen: false)
+          .fetchUpdateDataCovid(),
+    );
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        child: ListView(
+          children: [
+            HomePageHeader(context),
+            CovidDataSection(context),
+            HomePageBanner(context),
+            InformationSection(context),
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget HomePageHeader(BuildContext context) {
     return Container(
@@ -113,20 +148,77 @@ class HomePage extends StatelessWidget {
                   "Update Terkini",
                   style: kSubtitle.copyWith(fontWeight: FontWeight.w600),
                 ),
-                Text("12 25 2021")
+                Consumer<CovidNotifier>(
+                  builder: (context, data, _) {
+                    if (data.updateDataCovidState == RequestState.Loading) {
+                      return Center(
+                        child: Text("-"),
+                      );
+                    } else if (data.updateDataCovidState ==
+                        RequestState.Loaded) {
+                      return Text(
+                        DateFormat.yMMMEd().format(
+                          data.updateDataCovid!.penambahan.tanggal,
+                        ),
+                      );
+                    } else {
+                      return Center(
+                        child: Text(data.msg!),
+                      );
+                    }
+                  },
+                )
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              DataCovidItem(Icons.add_circle_outline_outlined, "4.000.000",
-                  "Positif", Colors.lightBlue.withOpacity(0.5)),
-              DataCovidItem(Icons.favorite, "4.000.000", "Sembuh",
-                  kLightGreen.withOpacity(0.5)),
-              DataCovidItem(Icons.dangerous_outlined, "4.000", "Mati",
-                  Colors.red.withOpacity(0.8)),
-            ],
+          Consumer<CovidNotifier>(
+            builder: (context, data, _) {
+              if (data.updateDataCovidState == RequestState.Loading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (data.updateDataCovidState == RequestState.Loaded) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    DataCovidItem(
+                      Icons.add_circle_outline_outlined,
+                      NumberFormat.currency(
+                        locale: 'id_ID',
+                        decimalDigits: 0,
+                        symbol: '',
+                      ).format(data.updateDataCovid!.total.jumlahPositif),
+                      "Positif",
+                      Colors.lightBlue.withOpacity(0.5),
+                    ),
+                    DataCovidItem(
+                      Icons.favorite,
+                      NumberFormat.currency(
+                        locale: 'id_ID',
+                        decimalDigits: 0,
+                        symbol: '',
+                      ).format(data.updateDataCovid!.total.jumlahSembuh),
+                      "Sembuh",
+                      kLightGreen.withOpacity(0.5),
+                    ),
+                    DataCovidItem(
+                      Icons.dangerous_outlined,
+                      NumberFormat.currency(
+                        locale: 'id_ID',
+                        decimalDigits: 0,
+                        symbol: '',
+                      ).format(data.updateDataCovid!.total.jumlahMeninggal),
+                      "Mati",
+                      Colors.red.withOpacity(0.8),
+                    ),
+                  ],
+                );
+              } else {
+                return Center(
+                  child: Text(data.msg!),
+                );
+              }
+            },
           ),
         ],
       ),
@@ -231,22 +323,6 @@ class HomePage extends StatelessWidget {
             "lihat berita kesehatan di Indonesia",
             "assets/images/news_illustration.png"),
       ],
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: ListView(
-          children: [
-            HomePageHeader(context),
-            CovidDataSection(context),
-            HomePageBanner(context),
-            InformationSection(context),
-          ],
-        ),
-      ),
     );
   }
 }
