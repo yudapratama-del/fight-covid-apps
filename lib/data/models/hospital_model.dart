@@ -1,4 +1,7 @@
-class HospitalModel {
+import 'package:capstone_apps/domain/entities/hospital.dart';
+import 'package:equatable/equatable.dart';
+
+class HospitalModel extends Equatable {
   HospitalModel({
     required this.id,
     required this.name,
@@ -9,13 +12,13 @@ class HospitalModel {
     required this.info,
   });
 
-  String id;
-  String name;
-  String address;
-  String phone;
-  int queue;
-  int bedAvailability;
-  String info;
+  final String id;
+  final String name;
+  final String address;
+  final String phone;
+  final int queue;
+  final int bedAvailability;
+  final String info;
 
   factory HospitalModel.fromJson(Map<String, dynamic> json) => HospitalModel(
         id: json["id"],
@@ -36,4 +39,27 @@ class HospitalModel {
         "bed_availability": bedAvailability,
         "info": info,
       };
+
+  Hospital toEntity() => Hospital(
+        id: id,
+        name: name,
+        address: address,
+        phone: phone,
+        queue: queue,
+        bedAvailability: bedAvailability,
+        info: info,
+      );
+
+  @override
+  List<Object> get props {
+    return [
+      id,
+      name,
+      address,
+      phone,
+      queue,
+      bedAvailability,
+      info,
+    ];
+  }
 }

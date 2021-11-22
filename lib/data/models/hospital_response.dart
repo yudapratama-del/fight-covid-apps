@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 import 'package:capstone_apps/data/models/hospital_model.dart';
 
 HospitalResponse hospitalResponseFromJson(String str) =>
@@ -8,14 +10,14 @@ HospitalResponse hospitalResponseFromJson(String str) =>
 String hospitalResponseToJson(HospitalResponse data) =>
     json.encode(data.toJson());
 
-class HospitalResponse {
+class HospitalResponse extends Equatable {
   HospitalResponse({
     required this.status,
     required this.hospitals,
   });
 
-  int status;
-  List<HospitalModel> hospitals;
+  final int status;
+  final List<HospitalModel> hospitals;
 
   factory HospitalResponse.fromJson(Map<String, dynamic> json) =>
       HospitalResponse(
@@ -28,4 +30,7 @@ class HospitalResponse {
         "status": status,
         "hospitals": List<dynamic>.from(hospitals.map((x) => x.toJson())),
       };
+
+  @override
+  List<Object> get props => [status, hospitals];
 }

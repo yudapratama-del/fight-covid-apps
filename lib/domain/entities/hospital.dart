@@ -1,4 +1,6 @@
-class Hospital {
+import 'package:equatable/equatable.dart';
+
+class Hospital extends Equatable {
   Hospital({
     required this.id,
     required this.name,
@@ -9,13 +11,13 @@ class Hospital {
     required this.info,
   });
 
-  String id;
-  String name;
-  String address;
-  String phone;
-  int queue;
-  int bedAvailability;
-  String info;
+  final String id;
+  final String name;
+  final String address;
+  final String phone;
+  final int queue;
+  final int bedAvailability;
+  final String info;
 
   factory Hospital.fromJson(Map<String, dynamic> json) => Hospital(
         id: json["id"],
@@ -36,4 +38,8 @@ class Hospital {
         "bed_availability": bedAvailability,
         "info": info,
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
 }
