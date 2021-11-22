@@ -10,12 +10,15 @@ class ProvinceListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Daftar Provinsi"),),
+      appBar: AppBar(
+        title: Text("Daftar Provinsi"),
+      ),
       body: ListView.builder(
-          itemCount: dataTest.length,
-          itemBuilder: (BuildContext context, int index) {
-            return ProvinceItem();
-          }),
+        itemCount: dataTest.length,
+        itemBuilder: (BuildContext context, int index) {
+          return ProvinceItem();
+        },
+      ),
     );
   }
 }
