@@ -1,4 +1,3 @@
-import 'package:capstone_apps/common/constants.dart';
 import 'package:capstone_apps/injection.dart' as getIt;
 import 'package:capstone_apps/persentation/pages/bookmark_page.dart';
 import 'package:capstone_apps/persentation/pages/city_list_page.dart';
