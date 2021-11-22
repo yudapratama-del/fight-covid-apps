@@ -43,7 +43,11 @@ class _ProvinceListPageState extends State<ProvinceListPage> {
               itemBuilder: (BuildContext context, int index) {
                 return ProvinceItem(
                   onTap: () {
-                    Navigator.pushNamed(context, CityListPage.ROUTE_NAME);
+                    Navigator.pushNamed(
+                      context,
+                      CityListPage.ROUTE_NAME,
+                      arguments: data.province[index].id,
+                    );
                   },
                   province: data.province[index],
                 );
@@ -51,7 +55,7 @@ class _ProvinceListPageState extends State<ProvinceListPage> {
             );
           } else {
             return Center(
-              child: Text(data.msg!),
+              child: Text(data.msg),
             );
           }
         },

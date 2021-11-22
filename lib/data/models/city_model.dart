@@ -1,3 +1,4 @@
+import 'package:capstone_apps/domain/entities/city.dart';
 import 'package:equatable/equatable.dart';
 
 class CityModel extends Equatable {
@@ -18,6 +19,11 @@ class CityModel extends Equatable {
         "id": id,
         "name": name,
       };
+
+  City toEntity() => City(
+        id: id,
+        name: name,
+      );
 
   @override
   List<Object> get props => [id, name];

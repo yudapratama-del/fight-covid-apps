@@ -1,9 +1,17 @@
 import 'package:capstone_apps/common/constants.dart';
+import 'package:capstone_apps/domain/entities/city.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CityItem extends StatelessWidget {
-  const CityItem({Key? key}) : super(key: key);
+  final City city;
+  final Function onTap;
+
+  const CityItem({
+    Key? key,
+    required this.city,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +29,11 @@ class CityItem extends StatelessWidget {
         child: Row(
           children: [
             CircleAvatar(
-                radius: 20, backgroundImage: AssetImage("assets/images/place_illustration.png")),
+              radius: 20,
+              backgroundImage: AssetImage(
+                "assets/images/place_illustration.png",
+              ),
+            ),
             SizedBox(
               width: 14,
             ),
@@ -30,7 +42,7 @@ class CityItem extends StatelessWidget {
               children: [
                 Text("Kota"),
                 Text(
-                  "Surabaya",
+                  city.name,
                   style: kHeading6.copyWith(fontWeight: FontWeight.w600),
                 )
               ],
@@ -39,7 +51,7 @@ class CityItem extends StatelessWidget {
         ),
       ),
       onTap: () {
-        print("Tapped on container");
+        onTap();
       },
     );
   }

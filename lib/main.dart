@@ -2,6 +2,7 @@ import 'package:capstone_apps/injection.dart' as getIt;
 import 'package:capstone_apps/persentation/pages/bookmark_page.dart';
 import 'package:capstone_apps/persentation/pages/city_list_page.dart';
 import 'package:capstone_apps/persentation/pages/home_page.dart';
+import 'package:capstone_apps/persentation/pages/hospital_list_page.dart';
 import 'package:capstone_apps/persentation/pages/main_page.dart';
 import 'package:capstone_apps/persentation/pages/profile_page.dart';
 import 'package:capstone_apps/persentation/pages/province_list_page.dart';
@@ -27,7 +28,10 @@ class MyApp extends StatelessWidget {
           create: (_) => CovidNotifier(getDataCovid: getIt.getIt()),
         ),
         ChangeNotifierProvider(
-          create: (_) => LocationNotifier(getProvince: getIt.getIt()),
+          create: (_) => LocationNotifier(
+            getProvince: getIt.getIt(),
+            getCity: getIt.getIt(),
+          ),
         ),
       ],
       child: MaterialApp(
@@ -47,7 +51,14 @@ class MyApp extends StatelessWidget {
             case ProvinceListPage.ROUTE_NAME:
               return CupertinoPageRoute(builder: (_) => ProvinceListPage());
             case CityListPage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => CityListPage());
+              var provinceId = settings.arguments as String;
+              return CupertinoPageRoute(
+                builder: (_) => CityListPage(
+                  provinceId: provinceId,
+                ),
+              );
+            case HospitaleListPage.ROUTE_NAME:
+              return CupertinoPageRoute(builder: (_) => HospitaleListPage());
             default:
           }
         },
