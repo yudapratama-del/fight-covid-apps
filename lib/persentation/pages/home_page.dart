@@ -16,24 +16,33 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
+    getData();
+    super.initState();
+  }
+
+  Future<void> getData() async {
     Future.microtask(
       () => Provider.of<CovidNotifier>(context, listen: false)
           .fetchUpdateDataCovid(),
     );
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: ListView(
-          children: [
-            HomePageHeader(context),
-            CovidDataSection(context),
-            HomePageBanner(context),
-            InformationSection(context),
-          ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          getData();
+        },
+        child: Container(
+          child: ListView(
+            children: [
+              HomePageHeader(context),
+              CovidDataSection(context),
+              HomePageBanner(context),
+              InformationSection(context),
+            ],
+          ),
         ),
       ),
     );
@@ -151,7 +160,11 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, data, _) {
                     if (data.updateDataCovidState == RequestState.Loading) {
                       return Center(
-                        child: Text("-"),
+                        child: SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: CircularProgressIndicator(),
+                        ),
                       );
                     } else if (data.updateDataCovidState ==
                         RequestState.Loaded) {
