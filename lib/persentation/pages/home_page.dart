@@ -38,10 +38,10 @@ class _HomePageState extends State<HomePage> {
         child: Container(
           child: ListView(
             children: [
-              HomePageHeader(context),
-              CovidDataSection(context),
-              HomePageBanner(context),
-              InformationSection(context),
+              homePageHeader(context),
+              covidDataSection(context),
+              homePageBanner(context),
+              informationSection(context),
             ],
           ),
         ),
@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget HomePageHeader(BuildContext context) {
+  Widget homePageHeader(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
@@ -107,8 +107,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget CovidDataSection(BuildContext context) {
-    Widget DataCovidItem(icon, angka, keterangan, iconColor) {
+  Widget covidDataSection(BuildContext context) {
+    Widget dataCovidItem(icon, angka, keterangan, iconColor) {
       return Container(
         width: 110,
         height: 140,
@@ -194,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    DataCovidItem(
+                    dataCovidItem(
                       Icons.add_circle_outline_outlined,
                       NumberFormat.currency(
                         locale: 'id_ID',
@@ -204,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                       "Positif",
                       Colors.lightBlue.withOpacity(0.5),
                     ),
-                    DataCovidItem(
+                    dataCovidItem(
                       Icons.favorite,
                       NumberFormat.currency(
                         locale: 'id_ID',
@@ -214,7 +214,7 @@ class _HomePageState extends State<HomePage> {
                       "Sembuh",
                       kLightGreen.withOpacity(0.5),
                     ),
-                    DataCovidItem(
+                    dataCovidItem(
                       Icons.dangerous_outlined,
                       NumberFormat.currency(
                         locale: 'id_ID',
@@ -238,7 +238,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget HomePageBanner(BuildContext context) {
+  Widget homePageBanner(BuildContext context) {
     return Container(
       height: 100,
       margin: EdgeInsets.all(10),
@@ -285,8 +285,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget InformationSection(BuildContext context) {
-    Widget InformarionListItem(
+  Widget informationSection(BuildContext context) {
+    Widget informarionListItem(
         String text, String subtitle, String image, Function onTap) {
       return Container(
         padding: EdgeInsets.symmetric(vertical: 7),
@@ -328,7 +328,7 @@ class _HomePageState extends State<HomePage> {
               "Information List",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
             )),
-        InformarionListItem(
+        informarionListItem(
           "Rumah Sakit Rujukan Covid",
           "lihat daftar rumah sakit rujukan di kotamu",
           "assets/images/hospital_illustration.png",
@@ -336,7 +336,7 @@ class _HomePageState extends State<HomePage> {
             Navigator.pushNamed(context, ProvinceListPage.ROUTE_NAME);
           },
         ),
-        InformarionListItem(
+        informarionListItem(
           "Berita Kesehatan Indonesia",
           "lihat berita kesehatan di Indonesia",
           "assets/images/news_illustration.png",
