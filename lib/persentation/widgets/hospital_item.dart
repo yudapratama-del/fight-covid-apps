@@ -55,7 +55,7 @@ class HospitalItem extends StatelessWidget {
         ),
       ),
       onTap: () {
-        print("Tapped on container");
+        onTap();
       },
     );
   }
