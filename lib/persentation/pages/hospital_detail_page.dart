@@ -80,8 +80,8 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Header(context),
-              RoomList(context),
+              header(context),
+              roomList(context),
             ],
           ),
         ),
@@ -89,7 +89,7 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
     );
   }
 
-  Widget Header(BuildContext context) {
+  Widget header(BuildContext context) {
     return Consumer<LocationNotifier>(
       builder: (context, data, _) {
         if (data.hospitalDetailState == RequestState.Loading) {
@@ -198,7 +198,7 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
     );
   }
 
-  Widget RoomList(BuildContext context) {
+  Widget roomList(BuildContext context) {
     return Consumer<LocationNotifier>(
       builder: (context, data, _) {
         if (data.hospitalDetailState == RequestState.Loaded) {

@@ -7,13 +7,13 @@ class NewsDetailPage extends StatelessWidget {
   const NewsDetailPage({Key? key}) : super(key: key);
 
   final String contohURL = "https://www.inews.id/lifestyle/health/1-dari-10-orang-di-indonesia-penderita-diabetes-wamenkes-dante-tertinggi-di-maluku-utara";
-  Widget NewsWebView() {
+  Widget newsWebView() {
     return WebView(
       initialUrl: contohURL,
     );
   }
 
-  Widget CustomAppBar() {
+  Widget customAppBar() {
     return Card(
       color: kDeepGreen,
       elevation: 5,
@@ -49,7 +49,7 @@ class NewsDetailPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Stack(
-          children: [NewsWebView(), CustomAppBar()],
+          children: [newsWebView(), customAppBar()],
         ),
       ),
     );
