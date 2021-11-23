@@ -2,10 +2,12 @@ import 'package:capstone_apps/common/state_enum.dart';
 import 'package:capstone_apps/domain/entities/city.dart';
 import 'package:capstone_apps/domain/entities/hospital.dart';
 import 'package:capstone_apps/domain/entities/hospital_detail.dart';
+import 'package:capstone_apps/domain/entities/hospital_map.dart';
 import 'package:capstone_apps/domain/entities/province.dart';
 import 'package:capstone_apps/domain/usecases/get_city.dart';
 import 'package:capstone_apps/domain/usecases/get_hospital.dart';
 import 'package:capstone_apps/domain/usecases/get_hospital_id.dart';
+import 'package:capstone_apps/domain/usecases/get_map_hospital.dart';
 import 'package:capstone_apps/domain/usecases/get_province.dart';
 import 'package:flutter/material.dart';
 
@@ -30,16 +32,23 @@ class LocationNotifier extends ChangeNotifier {
   RequestState _hospitalDetailState = RequestState.Empty;
   RequestState get hospitalDetailState => _hospitalDetailState;
 
+  late HospitalMap _hospitalMap;
+  HospitalMap get hospitalMap => _hospitalMap;
+  RequestState _hospitalMapState = RequestState.Empty;
+  RequestState get hospitalMapState => _hospitalMapState;
+
   GetProvince getProvince;
   GetCity getCity;
   GetHospital getHospital;
   GetDetailHospital getDetailHospital;
+  GetMapHospital getMapHospital;
 
   LocationNotifier({
     required this.getProvince,
     required this.getCity,
     required this.getHospital,
     required this.getDetailHospital,
+    required this.getMapHospital,
   });
 
   String _msg = "";
@@ -101,14 +110,28 @@ class LocationNotifier extends ChangeNotifier {
     notifyListeners();
 
     final result = await getDetailHospital.execute(hospitalId);
+    final mapResult = await getMapHospital.excute(hospitalId);
 
     result.fold((fail) {
       _hospitalDetailState = RequestState.Error;
       _msg = fail.message;
       notifyListeners();
     }, (data) {
-      _hospitalDetailState = RequestState.Loaded;
+      _hospitalMapState = RequestState.Loading;
       _hospitalDetail = data;
+      notifyListeners();
+
+      mapResult.fold((fail) {
+        _hospitalMapState = RequestState.Error;
+        _msg = fail.message;
+        notifyListeners();
+      }, (maps) {
+        _hospitalMapState = RequestState.Loaded;
+        _hospitalMap = maps;
+        notifyListeners();
+      });
+
+      _hospitalDetailState = RequestState.Loaded;
       notifyListeners();
     });
   }

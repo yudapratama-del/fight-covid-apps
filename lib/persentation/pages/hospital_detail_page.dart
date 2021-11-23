@@ -4,6 +4,7 @@ import 'package:capstone_apps/persentation/providers/location_notifier.dart';
 import 'package:capstone_apps/persentation/widgets/hospital_room_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HospitalDetailPage extends StatefulWidget {
   static const ROUTE_NAME = "detail-hospital";
@@ -25,6 +26,47 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
     Future.microtask(() => Provider.of<LocationNotifier>(context, listen: false)
         .fetchDetailHospital(widget.hospitalId));
     super.initState();
+  }
+
+  launchUrl(String url) async {
+    if (await canLaunch(url)) {
+      launch(url);
+    } else {
+      print("Error");
+    }
+  }
+
+  Future<void> showConfirmation(String mapUrl) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Konfimasi"),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Text("Apakah kamu ingin pergi ke Rumah Sakit ini?"),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Batal"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                launchUrl(mapUrl);
+              },
+              child: Text("Go!"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -116,16 +158,33 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
                     style: kSubtitle.copyWith(color: kWhite),
                   ),
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: kWhite,
-                    onPrimary: kDeepGreen,
-                  ),
-                  child: Text(
-                    "Go To Maps",
-                    style: kBodyText,
-                  ),
-                  onPressed: () {},
+                Consumer<LocationNotifier>(
+                  builder: (context, data, _) {
+                    if (data.hospitalMapState == RequestState.Loading) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (data.hospitalMapState == RequestState.Loaded) {
+                      return ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: kWhite,
+                          onPrimary: kDeepGreen,
+                        ),
+                        child: Text(
+                          "Go To Maps",
+                          style: kBodyText,
+                        ),
+                        onPressed: () {
+                          showConfirmation(data.hospitalMap.gmaps);
+                          print(data.hospitalMap.gmaps);
+                        },
+                      );
+                    } else {
+                      return Center(
+                        child: Text(data.msg),
+                      );
+                    }
+                  },
                 )
               ],
             ),

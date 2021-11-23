@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
             getCity: getIt.getIt(),
             getHospital: getIt.getIt(),
             getDetailHospital: getIt.getIt(),
+            getMapHospital: getIt.getIt(),
           ),
         ),
       ],

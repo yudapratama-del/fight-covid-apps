@@ -4,6 +4,8 @@ import 'package:capstone_apps/common/exception.dart';
 import 'package:capstone_apps/data/models/city_model.dart';
 import 'package:capstone_apps/data/models/city_response.dart';
 import 'package:capstone_apps/data/models/hospital_detail_model.dart';
+import 'package:capstone_apps/data/models/hospital_map_model.dart';
+import 'package:capstone_apps/data/models/hospital_map_response.dart';
 import 'package:capstone_apps/data/models/hospital_model.dart';
 import 'package:capstone_apps/data/models/hospital_response.dart';
 import 'package:capstone_apps/data/models/province_model.dart';
@@ -16,6 +18,7 @@ abstract class LocationRemoteDataSource {
   Future<List<CityModel>> getDataCity(String provinceId);
   Future<List<HospitalModel>> getDataHospital(String provinceId, String cityId);
   Future<DataModel> getDetailHospital(String hospitalId);
+  Future<HospitalMapModel> getMapHospital(String hospitalId);
 }
 
 class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
@@ -83,6 +86,21 @@ class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
 
     if (response.statusCode == 200) {
       return HospitalDetailModel.fromJson(json.decode(response.body)).data;
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<HospitalMapModel> getMapHospital(String hospitalId) async {
+    final response = await client.get(
+      Uri.parse("$BASE_URL/get-hospital-map?hospitalid=$hospitalId"),
+    );
+
+    _logger.d(response.body);
+
+    if (response.statusCode == 200) {
+      return HospitalMapResponse.fromJson(json.decode(response.body)).data;
     } else {
       throw ServerException();
     }
