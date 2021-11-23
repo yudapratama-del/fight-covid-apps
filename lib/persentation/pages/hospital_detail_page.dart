@@ -56,6 +56,10 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
           );
         } else if (data.hospitalDetailState == RequestState.Loaded) {
           return Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: margin,
+              vertical: 10,
+            ),
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
@@ -87,6 +91,7 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
                   ),
                 ),
                 Container(
+                  margin: EdgeInsets.only(bottom: 10),
                   child: Text(
                     data.hospitalDetail.name,
                     textAlign: TextAlign.center,
@@ -94,6 +99,7 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
                   ),
                 ),
                 Container(
+                  margin: EdgeInsets.only(bottom: 15),
                   child: Text(
                     data.hospitalDetail.address,
                     textAlign: TextAlign.center,
@@ -116,7 +122,7 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
                     onPrimary: kDeepGreen,
                   ),
                   child: Text(
-                    "Go To Gmaps",
+                    "Go To Maps",
                     style: kBodyText,
                   ),
                   onPressed: () {},
@@ -139,10 +145,12 @@ class _HospitalDetailPageState extends State<HospitalDetailPage> {
         if (data.hospitalDetailState == RequestState.Loaded) {
           return Expanded(
             child: ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemCount: data.hospitalDetail.bedDetail.length,
               itemBuilder: (BuildContext context, int index) {
                 return HospitalRoomItem(
                   bedDetail: data.hospitalDetail.bedDetail[index],
+                  index: index,
                 );
               },
             ),

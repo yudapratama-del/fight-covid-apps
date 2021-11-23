@@ -58,6 +58,7 @@ class _HospitaleListPageState extends State<HospitaleListPage> {
                     );
                   },
                   hospital: data.hospital[index],
+                  index: index,
                 );
               },
             );

@@ -60,6 +60,7 @@ class _CityListPageState extends State<CityListPage> {
                     );
                   },
                   city: data.city[index],
+                  index: index,
                 );
               },
             );
