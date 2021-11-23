@@ -15,7 +15,7 @@ class CovidNotifier extends ChangeNotifier {
 
   CovidNotifier({required this.getDataCovid});
 
-  String? _msg;
+  String? _msg = "";
   String? get msg => _msg;
 
   Future<void> fetchUpdateDataCovid() async {

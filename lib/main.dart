@@ -5,11 +5,14 @@ import 'package:capstone_apps/persentation/pages/home_page.dart';
 import 'package:capstone_apps/persentation/pages/hospital_detail_page.dart';
 import 'package:capstone_apps/persentation/pages/hospital_list_page.dart';
 import 'package:capstone_apps/persentation/pages/main_page.dart';
+import 'package:capstone_apps/persentation/pages/news_detail_page.dart';
+import 'package:capstone_apps/persentation/pages/news_list_page.dart';
 import 'package:capstone_apps/persentation/pages/profile_page.dart';
 import 'package:capstone_apps/persentation/pages/province_list_page.dart';
 import 'package:capstone_apps/persentation/providers/botttom_navbar_notifer.dart';
 import 'package:capstone_apps/persentation/providers/covid_notifier.dart';
 import 'package:capstone_apps/persentation/providers/location_notifier.dart';
+import 'package:capstone_apps/persentation/providers/news_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +28,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => BottomNavBarNotifier()),
+        ChangeNotifierProvider(
+            create: (_) => NewsNotifier(getNews: getIt.getIt())),
         ChangeNotifierProvider(
           create: (_) => CovidNotifier(getDataCovid: getIt.getIt()),
         ),
@@ -54,6 +59,14 @@ class MyApp extends StatelessWidget {
               return CupertinoPageRoute(builder: (_) => ProfilePage());
             case ProvinceListPage.ROUTE_NAME:
               return CupertinoPageRoute(builder: (_) => ProvinceListPage());
+            case NewsListPage.ROUTE_NAME:
+              return CupertinoPageRoute(builder: (_) => NewsListPage());
+            case NewsDetailPage.ROUTE_NAME:
+              var url = settings.arguments as String;
+              return CupertinoPageRoute(
+                  builder: (_) => NewsDetailPage(
+                        url: url,
+                      ));
             case CityListPage.ROUTE_NAME:
               var provinceId = settings.arguments as String;
               return CupertinoPageRoute(

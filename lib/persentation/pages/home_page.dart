@@ -1,5 +1,6 @@
 import 'package:capstone_apps/common/constants.dart';
 import 'package:capstone_apps/common/state_enum.dart';
+import 'package:capstone_apps/persentation/pages/news_list_page.dart';
 import 'package:capstone_apps/persentation/pages/province_list_page.dart';
 import 'package:capstone_apps/persentation/providers/covid_notifier.dart';
 import 'package:flutter/material.dart';
@@ -340,7 +341,9 @@ class _HomePageState extends State<HomePage> {
           "Berita Kesehatan Indonesia",
           "lihat berita kesehatan di Indonesia",
           "assets/images/news_illustration.png",
-          () {},
+          () {
+            Navigator.pushNamed(context, NewsListPage.ROUTE_NAME);
+          },
         ),
       ],
     );

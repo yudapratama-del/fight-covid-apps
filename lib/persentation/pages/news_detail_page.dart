@@ -3,17 +3,35 @@ import 'package:flutter/material.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 
-class NewsDetailPage extends StatelessWidget {
-  const NewsDetailPage({Key? key}) : super(key: key);
+class NewsDetailPage extends StatefulWidget {
+  static const ROUTE_NAME = "/news-detail";
 
-  final String contohURL = "https://www.inews.id/lifestyle/health/1-dari-10-orang-di-indonesia-penderita-diabetes-wamenkes-dante-tertinggi-di-maluku-utara";
+  const NewsDetailPage({
+    Key? key,
+    required this.url,
+  }) : super(key: key);
+
+  final String url;
+
+  @override
+  _NewsDetailPageState createState() => _NewsDetailPageState();
+}
+
+class _NewsDetailPageState extends State<NewsDetailPage> {
+  bool isLoading = true;
+
   Widget newsWebView() {
     return WebView(
-      initialUrl: contohURL,
+      initialUrl: widget.url,
+      onPageFinished: (finish) {
+        setState(() {
+          isLoading = false;
+        });
+      },
     );
   }
 
-  Widget customAppBar() {
+  Widget customAppBar(BuildContext context) {
     return Card(
       color: kDeepGreen,
       elevation: 5,
@@ -27,9 +45,12 @@ class NewsDetailPage extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
-            icon: Icon(Icons.arrow_back, color: kWhite,),
+            icon: Icon(
+              Icons.arrow_back,
+              color: kWhite,
+            ),
             onPressed: () {
-              print("Back");
+              Navigator.pop(context);
             },
           ),
           Padding(
@@ -49,7 +70,11 @@ class NewsDetailPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Stack(
-          children: [newsWebView(), customAppBar()],
+          children: [
+            newsWebView(),
+            isLoading ? Center(child: CircularProgressIndicator()) : SizedBox(),
+            customAppBar(context),
+          ],
         ),
       ),
     );
