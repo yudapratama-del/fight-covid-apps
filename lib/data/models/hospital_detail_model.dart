@@ -1,12 +1,4 @@
-import 'dart:convert';
-
 import 'package:capstone_apps/domain/entities/hospital_detail.dart';
-
-HospitalDetailModel hospitalDetailModelFromJson(String str) =>
-    HospitalDetailModel.fromJson(json.decode(str));
-
-String hospitalDetailModelToJson(HospitalDetailModel data) =>
-    json.encode(data.toJson());
 
 class HospitalDetailModel {
   HospitalDetailModel({
@@ -15,27 +7,22 @@ class HospitalDetailModel {
   });
 
   final int status;
-  final Data data;
+  final DataModel data;
 
   factory HospitalDetailModel.fromJson(Map<String, dynamic> json) =>
       HospitalDetailModel(
         status: json["status"],
-        data: Data.fromJson(json["data"]),
+        data: DataModel.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "data": data.toJson(),
       };
-
-  HospitalDetail toEntity() => HospitalDetail(
-        status: status,
-        data: data,
-      );
 }
 
-class Data {
-  Data({
+class DataModel {
+  DataModel({
     required this.id,
     required this.name,
     required this.address,
@@ -49,7 +36,7 @@ class Data {
   final String phone;
   final List<BedDetail> bedDetail;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory DataModel.fromJson(Map<String, dynamic> json) => DataModel(
         id: json["id"],
         name: json["name"],
         address: json["address"],
@@ -65,6 +52,14 @@ class Data {
         "phone": phone,
         "bedDetail": List<dynamic>.from(bedDetail.map((x) => x.toJson())),
       };
+
+  Data toEntity() => Data(
+        id: id,
+        name: name,
+        address: address,
+        phone: phone,
+        bedDetail: bedDetail,
+      );
 }
 
 class BedDetail {

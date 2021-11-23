@@ -1,5 +1,6 @@
 import 'package:capstone_apps/common/constants.dart';
 import 'package:capstone_apps/common/state_enum.dart';
+import 'package:capstone_apps/persentation/pages/hospital_detail_page.dart';
 import 'package:capstone_apps/persentation/providers/location_notifier.dart';
 import 'package:capstone_apps/persentation/widgets/hospital_item.dart';
 import 'package:flutter/material.dart';
@@ -52,11 +53,8 @@ class _HospitaleListPageState extends State<HospitaleListPage> {
                   onTap: () {
                     Navigator.pushNamed(
                       context,
-                      HospitaleListPage.ROUTE_NAME,
-                      arguments: {
-                        "provinceId": widget.provinceId,
-                        "cityId": data.city[index].id,
-                      },
+                      HospitalDetailPage.ROUTE_NAME,
+                      arguments: data.hospital[index].id,
                     );
                   },
                   hospital: data.hospital[index],

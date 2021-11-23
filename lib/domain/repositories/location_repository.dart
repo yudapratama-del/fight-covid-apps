@@ -12,5 +12,5 @@ abstract class LocationRepository {
     String provinceId,
     String cityId,
   );
-  Future<Either<Failure, HospitalDetail>> getDetailHospital(String hospitalId);
+  Future<Either<Failure, Data>> getDetailHospital(String hospitalId);
 }

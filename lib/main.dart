@@ -2,6 +2,7 @@ import 'package:capstone_apps/injection.dart' as getIt;
 import 'package:capstone_apps/persentation/pages/bookmark_page.dart';
 import 'package:capstone_apps/persentation/pages/city_list_page.dart';
 import 'package:capstone_apps/persentation/pages/home_page.dart';
+import 'package:capstone_apps/persentation/pages/hospital_detail_page.dart';
 import 'package:capstone_apps/persentation/pages/hospital_list_page.dart';
 import 'package:capstone_apps/persentation/pages/main_page.dart';
 import 'package:capstone_apps/persentation/pages/profile_page.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
             getProvince: getIt.getIt(),
             getCity: getIt.getIt(),
             getHospital: getIt.getIt(),
+            getDetailHospital: getIt.getIt(),
           ),
         ),
       ],
@@ -68,6 +70,13 @@ class MyApp extends StatelessWidget {
                 builder: (_) => HospitaleListPage(
                   provinceId: provinceId!,
                   cityId: cityId!,
+                ),
+              );
+            case HospitalDetailPage.ROUTE_NAME:
+              var hospitalId = settings.arguments as String;
+              return CupertinoPageRoute(
+                builder: (_) => HospitalDetailPage(
+                  hospitalId: hospitalId,
                 ),
               );
             default:

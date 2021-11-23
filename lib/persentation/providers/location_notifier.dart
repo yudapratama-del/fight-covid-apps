@@ -1,9 +1,11 @@
 import 'package:capstone_apps/common/state_enum.dart';
 import 'package:capstone_apps/domain/entities/city.dart';
 import 'package:capstone_apps/domain/entities/hospital.dart';
+import 'package:capstone_apps/domain/entities/hospital_detail.dart';
 import 'package:capstone_apps/domain/entities/province.dart';
 import 'package:capstone_apps/domain/usecases/get_city.dart';
 import 'package:capstone_apps/domain/usecases/get_hospital.dart';
+import 'package:capstone_apps/domain/usecases/get_hospital_id.dart';
 import 'package:capstone_apps/domain/usecases/get_province.dart';
 import 'package:flutter/material.dart';
 
@@ -23,14 +25,21 @@ class LocationNotifier extends ChangeNotifier {
   RequestState _hospitalState = RequestState.Empty;
   RequestState get hospitalState => _hospitalState;
 
+  late Data _hospitalDetail;
+  Data get hospitalDetail => _hospitalDetail;
+  RequestState _hospitalDetailState = RequestState.Empty;
+  RequestState get hospitalDetailState => _hospitalDetailState;
+
   GetProvince getProvince;
   GetCity getCity;
   GetHospital getHospital;
+  GetDetailHospital getDetailHospital;
 
   LocationNotifier({
     required this.getProvince,
     required this.getCity,
     required this.getHospital,
+    required this.getDetailHospital,
   });
 
   String _msg = "";
@@ -83,6 +92,23 @@ class LocationNotifier extends ChangeNotifier {
     }, (data) {
       _hospitalState = RequestState.Loaded;
       _hospital = data;
+      notifyListeners();
+    });
+  }
+
+  Future<void> fetchDetailHospital(String hospitalId) async {
+    _hospitalDetailState = RequestState.Loading;
+    notifyListeners();
+
+    final result = await getDetailHospital.execute(hospitalId);
+
+    result.fold((fail) {
+      _hospitalDetailState = RequestState.Error;
+      _msg = fail.message;
+      notifyListeners();
+    }, (data) {
+      _hospitalDetailState = RequestState.Loaded;
+      _hospitalDetail = data;
       notifyListeners();
     });
   }

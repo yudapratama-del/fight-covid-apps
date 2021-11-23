@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:capstone_apps/common/exception.dart';
 import 'package:capstone_apps/data/models/city_model.dart';
 import 'package:capstone_apps/data/models/city_response.dart';
+import 'package:capstone_apps/data/models/hospital_detail_model.dart';
 import 'package:capstone_apps/data/models/hospital_model.dart';
 import 'package:capstone_apps/data/models/hospital_response.dart';
 import 'package:capstone_apps/data/models/province_model.dart';
@@ -14,6 +15,7 @@ abstract class LocationRemoteDataSource {
   Future<List<ProvinceModel>> getDataProvince();
   Future<List<CityModel>> getDataCity(String provinceId);
   Future<List<HospitalModel>> getDataHospital(String provinceId, String cityId);
+  Future<DataModel> getDetailHospital(String hospitalId);
 }
 
 class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
@@ -59,13 +61,28 @@ class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
   ) async {
     final response = await client.get(
       Uri.parse(
-          "$BASE_URL//get-hospitals?provinceid=$provinceId&cityid=$cityId&type=1"),
+          "$BASE_URL/get-hospitals?provinceid=$provinceId&cityid=$cityId&type=1"),
     );
 
     _logger.d(response.body);
 
     if (response.statusCode == 200) {
       return HospitalResponse.fromJson(json.decode(response.body)).hospitals;
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<DataModel> getDetailHospital(String hospitalId) async {
+    final response = await client.get(
+      Uri.parse("$BASE_URL/get-bed-detail?hospitalid=$hospitalId&type=1"),
+    );
+
+    _logger.d(response.body);
+
+    if (response.statusCode == 200) {
+      return HospitalDetailModel.fromJson(json.decode(response.body)).data;
     } else {
       throw ServerException();
     }

@@ -8,7 +8,7 @@ class GetDetailHospital {
 
   GetDetailHospital(this.repository);
 
-  Future<Either<Failure, HospitalDetail>> execute(String hospitalId) {
+  Future<Either<Failure, Data>> execute(String hospitalId) {
     return repository.getDetailHospital(hospitalId);
   }
 }

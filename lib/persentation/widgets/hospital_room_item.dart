@@ -1,8 +1,14 @@
 import 'package:capstone_apps/common/constants.dart';
+import 'package:capstone_apps/data/models/hospital_detail_model.dart';
 import 'package:flutter/material.dart';
 
 class HospitalRoomItem extends StatelessWidget {
-  const HospitalRoomItem({Key? key}) : super(key: key);
+  const HospitalRoomItem({
+    Key? key,
+    required this.bedDetail,
+  }) : super(key: key);
+
+  final BedDetail bedDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +35,9 @@ class HospitalRoomItem extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                borderRadius:
-              BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10)),
                   gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
@@ -40,7 +47,7 @@ class HospitalRoomItem extends StatelessWidget {
               padding: EdgeInsets.all(10),
               width: double.infinity,
               child: Text(
-                "Nama Ruangan",
+                bedDetail.stats.title,
                 textAlign: TextAlign.center,
                 style: kHeading6.copyWith(color: kWhite),
               ),
@@ -52,7 +59,7 @@ class HospitalRoomItem extends StatelessWidget {
                   children: [
                     Text("Tersedia"),
                     Text(
-                      "12",
+                      bedDetail.stats.bedAvailable.toString(),
                       style: kHeading6.copyWith(fontWeight: FontWeight.w600),
                     )
                   ],
@@ -61,7 +68,7 @@ class HospitalRoomItem extends StatelessWidget {
                   children: [
                     Text("Kosong"),
                     Text(
-                      "12",
+                      bedDetail.stats.bedEmpty.toString(),
                       style: kHeading6.copyWith(fontWeight: FontWeight.w600),
                     )
                   ],
@@ -70,7 +77,7 @@ class HospitalRoomItem extends StatelessWidget {
                   children: [
                     Text("Antrian"),
                     Text(
-                      "0",
+                      bedDetail.stats.queue.toString(),
                       style: kHeading6.copyWith(fontWeight: FontWeight.w600),
                     )
                   ],
