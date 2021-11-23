@@ -1,7 +1,8 @@
-import 'package:capstone_apps/data/models/hospital_detail_model.dart';
 import 'package:equatable/equatable.dart';
 
-class Data {
+import 'package:capstone_apps/data/models/hospital_detail_model.dart';
+
+class Data extends Equatable {
   Data({
     required this.id,
     required this.name,
@@ -32,4 +33,15 @@ class Data {
         "phone": phone,
         "bedDetail": List<dynamic>.from(bedDetail.map((x) => x.toJson())),
       };
+
+  @override
+  List<Object> get props {
+    return [
+      id,
+      name,
+      address,
+      phone,
+      bedDetail,
+    ];
+  }
 }

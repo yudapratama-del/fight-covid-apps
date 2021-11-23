@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import 'package:capstone_apps/domain/entities/hospital_detail.dart';
 
-class HospitalDetailModel {
+class HospitalDetailModel extends Equatable {
   HospitalDetailModel({
     required this.status,
     required this.data,
@@ -19,9 +21,12 @@ class HospitalDetailModel {
         "status": status,
         "data": data.toJson(),
       };
+
+  @override
+  List<Object> get props => [status, data];
 }
 
-class DataModel {
+class DataModel extends Equatable {
   DataModel({
     required this.id,
     required this.name,
@@ -60,9 +65,20 @@ class DataModel {
         phone: phone,
         bedDetail: bedDetail,
       );
+
+  @override
+  List<Object> get props {
+    return [
+      id,
+      name,
+      address,
+      phone,
+      bedDetail,
+    ];
+  }
 }
 
-class BedDetail {
+class BedDetail extends Equatable {
   BedDetail({
     required this.time,
     required this.stats,
@@ -80,9 +96,12 @@ class BedDetail {
         "time": time,
         "stats": stats.toJson(),
       };
+
+  @override
+  List<Object> get props => [time, stats];
 }
 
-class Stats {
+class Stats extends Equatable {
   Stats({
     required this.title,
     required this.bedAvailable,
@@ -108,4 +127,7 @@ class Stats {
         "bed_empty": bedEmpty,
         "queue": queue,
       };
+
+  @override
+  List<Object> get props => [title, bedAvailable, bedEmpty, queue];
 }
