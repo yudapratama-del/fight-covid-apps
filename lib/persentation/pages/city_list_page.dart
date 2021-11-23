@@ -50,7 +50,14 @@ class _CityListPageState extends State<CityListPage> {
               itemBuilder: (BuildContext context, int index) {
                 return CityItem(
                   onTap: () {
-                    Navigator.pushNamed(context, HospitaleListPage.ROUTE_NAME);
+                    Navigator.pushNamed(
+                      context,
+                      HospitaleListPage.ROUTE_NAME,
+                      arguments: {
+                        "provinceId": widget.provinceId,
+                        "cityId": data.city[index].id,
+                      },
+                    );
                   },
                   city: data.city[index],
                 );

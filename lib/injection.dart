@@ -6,6 +6,7 @@ import 'package:capstone_apps/domain/repositories/covid_repository.dart';
 import 'package:capstone_apps/domain/repositories/location_repository.dart';
 import 'package:capstone_apps/domain/usecases/get_city.dart';
 import 'package:capstone_apps/domain/usecases/get_data_covid.dart';
+import 'package:capstone_apps/domain/usecases/get_hospital.dart';
 import 'package:capstone_apps/domain/usecases/get_province.dart';
 import 'package:capstone_apps/persentation/providers/covid_notifier.dart';
 import 'package:capstone_apps/persentation/providers/location_notifier.dart';
@@ -25,6 +26,7 @@ void init() {
     () => LocationNotifier(
       getProvince: getIt(),
       getCity: getIt(),
+      getHospital: getIt(),
     ),
   );
 
@@ -56,6 +58,7 @@ void init() {
   getIt.registerLazySingleton(() => GetDataCovid(getIt()));
   getIt.registerLazySingleton(() => GetProvince(getIt()));
   getIt.registerLazySingleton(() => GetCity(getIt()));
+  getIt.registerLazySingleton(() => GetHospital(getIt()));
 
   /// External
   getIt.registerLazySingleton(() => http.Client());

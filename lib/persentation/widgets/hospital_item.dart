@@ -1,9 +1,17 @@
 import 'package:capstone_apps/common/constants.dart';
+import 'package:capstone_apps/domain/entities/hospital.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class HospitalItem extends StatelessWidget {
-  const HospitalItem({Key? key}) : super(key: key);
+  final Function onTap;
+  final Hospital hospital;
+
+  const HospitalItem({
+    Key? key,
+    required this.onTap,
+    required this.hospital,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +29,27 @@ class HospitalItem extends StatelessWidget {
         child: Row(
           children: [
             CircleAvatar(
-                radius: 20, backgroundImage: AssetImage("assets/images/hospital_illustration.png")),
+              radius: 20,
+              backgroundImage: AssetImage(
+                "assets/images/hospital_illustration.png",
+              ),
+            ),
             SizedBox(
               width: 14,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Rumah Sakit"),
-                Text(
-                  "Umum Dokter Boy",
-                  style: kHeading6.copyWith(fontWeight: FontWeight.w600),
-                )
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Rumah Sakit"),
+                  Text(
+                    hospital.name!,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: kHeading6.copyWith(fontWeight: FontWeight.w600),
+                  )
+                ],
+              ),
             )
           ],
         ),

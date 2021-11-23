@@ -50,6 +50,7 @@ class _ProvinceListPageState extends State<ProvinceListPage> {
                     );
                   },
                   province: data.province[index],
+                  index: index,
                 );
               },
             );

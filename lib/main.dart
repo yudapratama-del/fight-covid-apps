@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
           create: (_) => LocationNotifier(
             getProvince: getIt.getIt(),
             getCity: getIt.getIt(),
+            getHospital: getIt.getIt(),
           ),
         ),
       ],
@@ -58,7 +59,17 @@ class MyApp extends StatelessWidget {
                 ),
               );
             case HospitaleListPage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => HospitaleListPage());
+              Map data = settings.arguments as Map;
+
+              final String? provinceId = data["provinceId"];
+              final String? cityId = data["cityId"];
+
+              return CupertinoPageRoute(
+                builder: (_) => HospitaleListPage(
+                  provinceId: provinceId!,
+                  cityId: cityId!,
+                ),
+              );
             default:
           }
         },
