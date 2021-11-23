@@ -1,6 +1,7 @@
 import 'package:capstone_apps/common/failure.dart';
 import 'package:capstone_apps/domain/entities/city.dart';
 import 'package:capstone_apps/domain/entities/hospital.dart';
+import 'package:capstone_apps/domain/entities/hospital_detail.dart';
 import 'package:capstone_apps/domain/entities/province.dart';
 import 'package:dartz/dartz.dart';
 
@@ -11,4 +12,5 @@ abstract class LocationRepository {
     String provinceId,
     String cityId,
   );
+  Future<Either<Failure, HospitalDetail>> getDetailHospital(String hospitalId);
 }
