@@ -1,22 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:capstone_apps/common/constants.dart';
-import 'package:capstone_apps/domain/entities/articles.dart';
-import 'package:capstone_apps/persentation/providers/news_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
+import 'package:capstone_apps/common/constants.dart';
+import 'package:capstone_apps/domain/entities/articles.dart';
 
 class NewsItem extends StatefulWidget {
-  const NewsItem({
-    Key? key,
-    required this.onTap,
-    required this.article,
-    required this.index,
-  }) : super(key: key);
-
   final Article article;
   final int index;
   final Function onTap;
+
+  const NewsItem({
+    Key? key,
+    required this.article,
+    required this.index,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   _NewsItemState createState() => _NewsItemState();
@@ -76,13 +74,6 @@ class _NewsItemState extends State<NewsItem> {
           widget.article.author!,
           maxLines: 1,
           overflow: TextOverflow.clip,
-        ),
-        trailing: IconButton(
-          onPressed: () async {
-            await Provider.of<NewsNotifier>(context, listen: false)
-                .addNewsBookmark(widget.article);
-          },
-          icon: Icon(Icons.favorite_border_rounded, color: kRed),
         ),
       ),
     );

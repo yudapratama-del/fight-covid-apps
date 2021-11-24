@@ -34,8 +34,6 @@ class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
   Future<List<ProvinceModel>> getDataProvince() async {
     final response = await client.get(Uri.parse("$BASE_URL/get-provinces"));
 
-    _logger.d(response.body);
-
     if (response.statusCode == 200) {
       return ProvinceResponse.fromJson(json.decode(response.body)).provinces;
     } else {
@@ -47,8 +45,6 @@ class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
   Future<List<CityModel>> getDataCity(String provinceId) async {
     final response = await client
         .get(Uri.parse("$BASE_URL/get-cities?provinceid=$provinceId"));
-
-    _logger.d(response.body);
 
     if (response.statusCode == 200) {
       return CityResponse.fromJson(json.decode(response.body)).cities;
@@ -67,8 +63,6 @@ class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
           "$BASE_URL/get-hospitals?provinceid=$provinceId&cityid=$cityId&type=1"),
     );
 
-    _logger.d(response.body);
-
     if (response.statusCode == 200) {
       return HospitalResponse.fromJson(json.decode(response.body)).hospitals;
     } else {
@@ -82,8 +76,6 @@ class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
       Uri.parse("$BASE_URL/get-bed-detail?hospitalid=$hospitalId&type=1"),
     );
 
-    _logger.d(response.body);
-
     if (response.statusCode == 200) {
       return HospitalDetailModel.fromJson(json.decode(response.body)).data;
     } else {
@@ -96,8 +88,6 @@ class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
     final response = await client.get(
       Uri.parse("$BASE_URL/get-hospital-map?hospitalid=$hospitalId"),
     );
-
-    _logger.d(response.body);
 
     if (response.statusCode == 200) {
       return HospitalMapResponse.fromJson(json.decode(response.body)).data;

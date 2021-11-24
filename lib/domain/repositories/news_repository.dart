@@ -6,4 +6,6 @@ abstract class NewsRepository {
   Future<Either<Failure, List<Article>>> getNews();
   Future<Either<Failure, String>> saveBookmarkNews(Article article);
   Future<Either<Failure, List<Article>>> getBookmarkNews();
+  Future<bool> isAddedToBookmark(String url);
+  Future<Either<Failure, String>> removeBookmarkNews(Article article);
 }

@@ -61,4 +61,28 @@ class DatabaseHelper {
     _logger.d(result);
     return result;
   }
+
+  Future<Map<String, dynamic>?> getNewsBookmarkByUrl(String url) async {
+    final db = await database;
+    final result = await db!.query(
+      _TBL_BOOKMARK,
+      where: "url = ?",
+      whereArgs: [url],
+    );
+
+    if (result.isNotEmpty) {
+      return result.first;
+    } else {
+      return null;
+    }
+  }
+
+  Future<int> removeNewsBookmark(NewsTable newsTable) async {
+    final db = await database;
+    return await db!.delete(
+      _TBL_BOOKMARK,
+      where: "url = ?",
+      whereArgs: [newsTable.url],
+    );
+  }
 }

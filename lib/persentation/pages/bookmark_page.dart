@@ -61,11 +61,19 @@ class _BookmarkPageState extends State<BookmarkPage> {
                         article: data.bookmarkNews[index],
                         index: index,
                         onTap: () {
-                          print("CLICKED");
                           Navigator.pushNamed(
                             context,
                             NewsDetailPage.ROUTE_NAME,
-                            arguments: data.bookmarkNews[index].url,
+                            arguments: {
+                              "url": data.bookmarkNews[index].url,
+                              "articles": data.bookmarkNews[index]
+                            },
+                          ).then(
+                            (value) => Future.microtask(
+                              () => Provider.of<NewsNotifier>(context,
+                                      listen: false)
+                                  .fetchBookmarkNews(),
+                            ),
                           );
                         },
                       );

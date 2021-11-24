@@ -23,8 +23,6 @@ class CovidRemoteDataSourceImpl implements CovidRemoteDataSource {
   Future<UpdateDataCovidModel> getDataCovid() async {
     final response = await client.get(Uri.parse(BASE_URL));
 
-    _logger.d(response.body);
-
     if (response.statusCode == 200) {
       return DataCovidResponse.fromJson(json.decode(response.body)).update;
     } else {

@@ -47,4 +47,21 @@ class NewsRepositoryImpl implements NewsRepository {
     final result = await newsLocalDataSource.getNewsBookmark();
     return Right(result.map((e) => e.toEntity()).toList());
   }
+
+  @override
+  Future<bool> isAddedToBookmark(String url) async {
+    final result = await newsLocalDataSource.getNewsBookmarkByUrl(url);
+    return result != null;
+  }
+
+  @override
+  Future<Either<Failure, String>> removeBookmarkNews(Article article) async {
+    try {
+      final result = await newsLocalDataSource
+          .removeNewsBookmark(NewsTable.fromEntity(article));
+      return Right(result);
+    } on DatabaseException catch (e) {
+      return Left(DatabaseFailure(e.message));
+    }
+  }
 }

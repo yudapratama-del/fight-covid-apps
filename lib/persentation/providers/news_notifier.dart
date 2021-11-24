@@ -1,8 +1,11 @@
 import 'package:capstone_apps/common/state_enum.dart';
 import 'package:capstone_apps/domain/entities/articles.dart';
 import 'package:capstone_apps/domain/usecases/get_bookmark.dart';
+import 'package:capstone_apps/domain/usecases/get_bookmark_status.dart';
 import 'package:capstone_apps/domain/usecases/get_news.dart';
+import 'package:capstone_apps/domain/usecases/remove_bookmark.dart';
 import 'package:capstone_apps/domain/usecases/save_bookmark.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
 
@@ -23,11 +26,15 @@ class NewsNotifier extends ChangeNotifier {
   GetNews getNews;
   SaveBookmark saveBookmark;
   GetBookmark getBookmark;
+  GetBookmarkStatus getBookmarkStatus;
+  RemoveBookmark removeBookmark;
 
   NewsNotifier({
     required this.getNews,
     required this.saveBookmark,
     required this.getBookmark,
+    required this.getBookmarkStatus,
+    required this.removeBookmark,
   });
 
   String? _msg = "";
@@ -76,10 +83,33 @@ class NewsNotifier extends ChangeNotifier {
 
     result.fold((fail) {
       _bookmarkMsg = fail.message;
-      notifyListeners();
     }, (successMsg) {
       _bookmarkMsg = successMsg;
-      notifyListeners();
     });
+
+    await loadBookmark(article.url!);
+  }
+
+  Future<void> removeFromBookmark(Article article) async {
+    final result = await removeBookmark.execute(article);
+
+    await result.fold(
+      (failure) async {
+        _bookmarkMsg = failure.message;
+      },
+      (successMessage) async {
+        _bookmarkMsg = successMessage;
+      },
+    );
+
+    await loadBookmark(article.url!);
+  }
+
+  bool _isAddedtoBookmark = false;
+  bool get isAddedToBookmark => _isAddedtoBookmark;
+  Future<void> loadBookmark(String url) async {
+    final result = await getBookmarkStatus.execute(url);
+    _isAddedtoBookmark = result;
+    notifyListeners();
   }
 }

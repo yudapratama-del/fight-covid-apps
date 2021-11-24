@@ -1,3 +1,4 @@
+import 'package:capstone_apps/domain/entities/articles.dart';
 import 'package:capstone_apps/injection.dart' as getIt;
 import 'package:capstone_apps/persentation/pages/bookmark_page.dart';
 import 'package:capstone_apps/persentation/pages/city_list_page.dart';
@@ -33,6 +34,8 @@ class MyApp extends StatelessWidget {
             getNews: getIt.getIt(),
             saveBookmark: getIt.getIt(),
             getBookmark: getIt.getIt(),
+            getBookmarkStatus: getIt.getIt(),
+            removeBookmark: getIt.getIt(),
           ),
         ),
         ChangeNotifierProvider(
@@ -79,10 +82,13 @@ class MyApp extends StatelessWidget {
                 builder: (_) => NewsListPage(),
               );
             case NewsDetailPage.ROUTE_NAME:
-              var url = settings.arguments as String;
+              Map data = settings.arguments as Map;
+              final String? url = data["url"];
+              final Article? article = data["articles"];
               return CupertinoPageRoute(
                 builder: (_) => NewsDetailPage(
-                  url: url,
+                  url: url!,
+                  article: article!,
                 ),
               );
             case CityListPage.ROUTE_NAME:

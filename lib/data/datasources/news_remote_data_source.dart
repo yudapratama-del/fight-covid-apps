@@ -25,8 +25,6 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   Future<List<ArticleModel>> getNews() async {
     final response = await client.get(Uri.parse("$BASE_URL$API_KEY"));
 
-    _logger.d(response.body);
-
     if (response.statusCode == 200) {
       return NewsResponse.fromJson(json.decode(response.body)).articles;
     } else {

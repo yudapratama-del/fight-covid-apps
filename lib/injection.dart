@@ -10,6 +10,7 @@ import 'package:capstone_apps/domain/repositories/covid_repository.dart';
 import 'package:capstone_apps/domain/repositories/location_repository.dart';
 import 'package:capstone_apps/domain/repositories/news_repository.dart';
 import 'package:capstone_apps/domain/usecases/get_bookmark.dart';
+import 'package:capstone_apps/domain/usecases/get_bookmark_status.dart';
 import 'package:capstone_apps/domain/usecases/get_city.dart';
 import 'package:capstone_apps/domain/usecases/get_data_covid.dart';
 import 'package:capstone_apps/domain/usecases/get_hospital.dart';
@@ -17,6 +18,7 @@ import 'package:capstone_apps/domain/usecases/get_hospital_id.dart';
 import 'package:capstone_apps/domain/usecases/get_map_hospital.dart';
 import 'package:capstone_apps/domain/usecases/get_news.dart';
 import 'package:capstone_apps/domain/usecases/get_province.dart';
+import 'package:capstone_apps/domain/usecases/remove_bookmark.dart';
 import 'package:capstone_apps/domain/usecases/save_bookmark.dart';
 import 'package:capstone_apps/persentation/providers/covid_notifier.dart';
 import 'package:capstone_apps/persentation/providers/location_notifier.dart';
@@ -38,6 +40,8 @@ void init() {
       getNews: getIt(),
       saveBookmark: getIt(),
       getBookmark: getIt(),
+      getBookmarkStatus: getIt(),
+      removeBookmark: getIt(),
     ),
   );
   getIt.registerFactory(
@@ -100,6 +104,8 @@ void init() {
   getIt.registerLazySingleton(() => GetNews(getIt()));
   getIt.registerLazySingleton(() => SaveBookmark(getIt()));
   getIt.registerLazySingleton(() => GetBookmark(getIt()));
+  getIt.registerLazySingleton(() => GetBookmarkStatus(getIt()));
+  getIt.registerLazySingleton(() => RemoveBookmark(getIt()));
 
   ///Helper
   getIt.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());

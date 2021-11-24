@@ -18,6 +18,7 @@ class _NewsListPageState extends State<NewsListPage> {
   @override
   void initState() {
     getData();
+
     super.initState();
   }
 
@@ -53,11 +54,13 @@ class _NewsListPageState extends State<NewsListPage> {
                     article: data.news![index],
                     index: index,
                     onTap: () {
-                      print("CLICKED");
                       Navigator.pushNamed(
                         context,
                         NewsDetailPage.ROUTE_NAME,
-                        arguments: data.news![index].url,
+                        arguments: {
+                          "url": data.news![index].url,
+                          "articles": data.news![index]
+                        },
                       );
                     },
                   );
