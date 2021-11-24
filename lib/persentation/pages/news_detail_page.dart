@@ -33,7 +33,7 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
 
   Widget customAppBar(BuildContext context) {
     return Card(
-      color: kDeepGreen,
+      color: kLightGreen,
       elevation: 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(

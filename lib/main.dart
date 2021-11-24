@@ -50,23 +50,36 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case MainPage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => MainPage());
+              return CupertinoPageRoute(
+                builder: (_) => MainPage(),
+              );
             case HomePage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => HomePage());
+              return CupertinoPageRoute(
+                builder: (_) => HomePage(),
+              );
             case BookmarkPage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => BookmarkPage());
+              return CupertinoPageRoute(
+                builder: (_) => BookmarkPage(),
+              );
             case ProfilePage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => ProfilePage());
+              return CupertinoPageRoute(
+                builder: (_) => ProfilePage(),
+              );
             case ProvinceListPage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => ProvinceListPage());
+              return CupertinoPageRoute(
+                builder: (_) => ProvinceListPage(),
+              );
             case NewsListPage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => NewsListPage());
+              return CupertinoPageRoute(
+                builder: (_) => NewsListPage(),
+              );
             case NewsDetailPage.ROUTE_NAME:
               var url = settings.arguments as String;
               return CupertinoPageRoute(
-                  builder: (_) => NewsDetailPage(
-                        url: url,
-                      ));
+                builder: (_) => NewsDetailPage(
+                  url: url,
+                ),
+              );
             case CityListPage.ROUTE_NAME:
               var provinceId = settings.arguments as String;
               return CupertinoPageRoute(
@@ -76,10 +89,8 @@ class MyApp extends StatelessWidget {
               );
             case HospitaleListPage.ROUTE_NAME:
               Map data = settings.arguments as Map;
-
               final String? provinceId = data["provinceId"];
               final String? cityId = data["cityId"];
-
               return CupertinoPageRoute(
                 builder: (_) => HospitaleListPage(
                   provinceId: provinceId!,
