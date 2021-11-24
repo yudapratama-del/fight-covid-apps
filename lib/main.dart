@@ -29,7 +29,12 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => BottomNavBarNotifier()),
         ChangeNotifierProvider(
-            create: (_) => NewsNotifier(getNews: getIt.getIt())),
+          create: (_) => NewsNotifier(
+            getNews: getIt.getIt(),
+            saveBookmark: getIt.getIt(),
+            getBookmark: getIt.getIt(),
+          ),
+        ),
         ChangeNotifierProvider(
           create: (_) => CovidNotifier(getDataCovid: getIt.getIt()),
         ),

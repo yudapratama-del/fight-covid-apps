@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone_apps/common/api_key.dart';
 import 'package:capstone_apps/common/constants.dart';
 import 'package:flutter/material.dart';
@@ -18,15 +19,17 @@ class ProfilePage extends StatelessWidget {
             padding: EdgeInsets.all(30),
             child: Row(
               children: [
-                Container(
-                  height: 64,
-                  width: 64,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(32),
-                    image: DecorationImage(
-                      image: NetworkImage(IMAGE_URL),
-                      fit: BoxFit.cover,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(32),
+                  child: CachedNetworkImage(
+                    imageUrl: IMAGE_URL,
+                    height: 64,
+                    width: 64,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => Center(
+                      child: CircularProgressIndicator(),
                     ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
                 SizedBox(

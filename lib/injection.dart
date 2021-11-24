@@ -1,5 +1,7 @@
 import 'package:capstone_apps/data/datasources/covid_remote_data_source.dart';
+import 'package:capstone_apps/data/datasources/db/database_helper.dart';
 import 'package:capstone_apps/data/datasources/location_remote_data_source.dart';
+import 'package:capstone_apps/data/datasources/news_local_remote_data_source.dart';
 import 'package:capstone_apps/data/datasources/news_remote_data_source.dart';
 import 'package:capstone_apps/data/repositories/covid_repository_impl.dart';
 import 'package:capstone_apps/data/repositories/location_repository_impl.dart';
@@ -7,6 +9,7 @@ import 'package:capstone_apps/data/repositories/news_repository_impl.dart';
 import 'package:capstone_apps/domain/repositories/covid_repository.dart';
 import 'package:capstone_apps/domain/repositories/location_repository.dart';
 import 'package:capstone_apps/domain/repositories/news_repository.dart';
+import 'package:capstone_apps/domain/usecases/get_bookmark.dart';
 import 'package:capstone_apps/domain/usecases/get_city.dart';
 import 'package:capstone_apps/domain/usecases/get_data_covid.dart';
 import 'package:capstone_apps/domain/usecases/get_hospital.dart';
@@ -14,6 +17,7 @@ import 'package:capstone_apps/domain/usecases/get_hospital_id.dart';
 import 'package:capstone_apps/domain/usecases/get_map_hospital.dart';
 import 'package:capstone_apps/domain/usecases/get_news.dart';
 import 'package:capstone_apps/domain/usecases/get_province.dart';
+import 'package:capstone_apps/domain/usecases/save_bookmark.dart';
 import 'package:capstone_apps/persentation/providers/covid_notifier.dart';
 import 'package:capstone_apps/persentation/providers/location_notifier.dart';
 import 'package:capstone_apps/persentation/providers/news_notifier.dart';
@@ -32,6 +36,8 @@ void init() {
   getIt.registerFactory(
     () => NewsNotifier(
       getNews: getIt(),
+      saveBookmark: getIt(),
+      getBookmark: getIt(),
     ),
   );
   getIt.registerFactory(
@@ -58,6 +64,7 @@ void init() {
   getIt.registerLazySingleton<NewsRepository>(
     () => NewsRepositoryImpl(
       newsRemoteDataSource: getIt(),
+      newsLocalDataSource: getIt(),
     ),
   );
 
@@ -77,6 +84,11 @@ void init() {
       client: getIt(),
     ),
   );
+  getIt.registerLazySingleton<NewsLocalDataSource>(
+    () => NewsLocalDataSourceImpl(
+      databaseHelper: getIt(),
+    ),
+  );
 
   /// Usecase
   getIt.registerLazySingleton(() => GetDataCovid(getIt()));
@@ -86,6 +98,11 @@ void init() {
   getIt.registerLazySingleton(() => GetDetailHospital(getIt()));
   getIt.registerLazySingleton(() => GetMapHospital(getIt()));
   getIt.registerLazySingleton(() => GetNews(getIt()));
+  getIt.registerLazySingleton(() => SaveBookmark(getIt()));
+  getIt.registerLazySingleton(() => GetBookmark(getIt()));
+
+  ///Helper
+  getIt.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
   /// External
   getIt.registerLazySingleton(() => http.Client());

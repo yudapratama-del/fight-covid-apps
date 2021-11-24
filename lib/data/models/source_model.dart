@@ -6,7 +6,7 @@ class SourceModel extends Equatable {
     required this.name,
   });
 
-  final int? id;
+  final dynamic id;
   final String? name;
 
   factory SourceModel.fromJson(Map<String, dynamic> json) => SourceModel(

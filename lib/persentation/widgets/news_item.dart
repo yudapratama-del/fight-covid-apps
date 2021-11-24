@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone_apps/common/constants.dart';
 import 'package:capstone_apps/domain/entities/articles.dart';
+import 'package:capstone_apps/persentation/providers/news_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class NewsItem extends StatefulWidget {
   const NewsItem({
@@ -76,7 +78,10 @@ class _NewsItemState extends State<NewsItem> {
           overflow: TextOverflow.clip,
         ),
         trailing: IconButton(
-          onPressed: () {},
+          onPressed: () async {
+            await Provider.of<NewsNotifier>(context, listen: false)
+                .addNewsBookmark(widget.article);
+          },
           icon: Icon(Icons.favorite_border_rounded, color: kRed),
         ),
       ),

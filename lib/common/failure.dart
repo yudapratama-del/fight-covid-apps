@@ -16,3 +16,7 @@ class ServerFailure extends Failure {
 class ConncetionFailure extends Failure {
   ConncetionFailure(String message) : super(message);
 }
+
+class DatabaseFailure extends Failure {
+  DatabaseFailure(String message) : super(message);
+}

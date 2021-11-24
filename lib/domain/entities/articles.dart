@@ -1,9 +1,7 @@
-import 'package:capstone_apps/data/models/source_model.dart';
 import 'package:equatable/equatable.dart';
 
 class Article extends Equatable {
   Article({
-    required this.source,
     required this.author,
     required this.title,
     required this.description,
@@ -13,7 +11,6 @@ class Article extends Equatable {
     required this.content,
   });
 
-  final SourceModel source;
   final String? author;
   final String? title;
   final String? description;
@@ -22,8 +19,17 @@ class Article extends Equatable {
   final DateTime? publishedAt;
   final String? content;
 
+  Article.bookmark({
+    required this.author,
+    required this.title,
+    required this.description,
+    required this.url,
+    required this.urlToImage,
+    required this.publishedAt,
+    required this.content,
+  });
+
   factory Article.fromJson(Map<String, dynamic> json) => Article(
-        source: SourceModel.fromJson(json["source"]),
         author: json["author"] == null ? null : json["author"],
         title: json["title"],
         description: json["description"],
@@ -34,7 +40,6 @@ class Article extends Equatable {
       );
 
   Map<String, dynamic> toJson() => {
-        "source": source.toJson(),
         "author": author == null ? null : author,
         "title": title,
         "description": description,

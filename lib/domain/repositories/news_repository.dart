@@ -4,4 +4,6 @@ import 'package:dartz/dartz.dart';
 
 abstract class NewsRepository {
   Future<Either<Failure, List<Article>>> getNews();
+  Future<Either<Failure, String>> saveBookmarkNews(Article article);
+  Future<Either<Failure, List<Article>>> getBookmarkNews();
 }
