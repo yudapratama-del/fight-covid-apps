@@ -17,9 +17,14 @@ class NewsListPage extends StatefulWidget {
 class _NewsListPageState extends State<NewsListPage> {
   @override
   void initState() {
-    Future.microtask(
-        () => Provider.of<NewsNotifier>(context, listen: false).fetchNews());
+    getData();
     super.initState();
+  }
+
+  void getData() {
+    Future.microtask(
+      () => Provider.of<NewsNotifier>(context, listen: false).fetchNews(),
+    );
   }
 
   @override
@@ -29,37 +34,42 @@ class _NewsListPageState extends State<NewsListPage> {
         backgroundColor: kLightGreen,
         title: Text("Daftar Berita Kesehatan"),
       ),
-      body: Consumer<NewsNotifier>(
-        builder: (context, data, _) {
-          if (data.newsState == RequestState.Loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (data.newsState == RequestState.Loaded) {
-            return ListView.builder(
-              physics: BouncingScrollPhysics(),
-              itemCount: data.news!.length,
-              itemBuilder: (BuildContext context, int index) {
-                return NewsItem(
-                  article: data.news![index],
-                  index: index,
-                  onTap: () {
-                    print("CLICKED");
-                    Navigator.pushNamed(
-                      context,
-                      NewsDetailPage.ROUTE_NAME,
-                      arguments: data.news![index].url,
-                    );
-                  },
-                );
-              },
-            );
-          } else {
-            return Center(
-              child: Text(data.msg!),
-            );
-          }
+      body: RefreshIndicator(
+        onRefresh: () async {
+          getData();
         },
+        child: Consumer<NewsNotifier>(
+          builder: (context, data, _) {
+            if (data.newsState == RequestState.Loading) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (data.newsState == RequestState.Loaded) {
+              return ListView.builder(
+                physics: BouncingScrollPhysics(),
+                itemCount: data.news!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return NewsItem(
+                    article: data.news![index],
+                    index: index,
+                    onTap: () {
+                      print("CLICKED");
+                      Navigator.pushNamed(
+                        context,
+                        NewsDetailPage.ROUTE_NAME,
+                        arguments: data.news![index].url,
+                      );
+                    },
+                  );
+                },
+              );
+            } else {
+              return Center(
+                child: Text(data.msg!),
+              );
+            }
+          },
+        ),
       ),
     );
   }

@@ -59,6 +59,7 @@ class _HospitaleListPageState extends State<HospitaleListPage> {
               } else if (data.hospitalState == RequestState.Loaded) {
                 return Expanded(
                   child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
                     itemCount: data.hospital.length,
                     itemBuilder: (BuildContext context, int index) {
                       if (editingController.text.isEmpty) {

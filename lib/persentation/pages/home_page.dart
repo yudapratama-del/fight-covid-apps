@@ -331,7 +331,7 @@ class _HomePageState extends State<HomePage> {
             )),
         informarionListItem(
           "Rumah Sakit Rujukan Covid",
-          "lihat daftar rumah sakit rujukan di kotamu",
+          "Lihat daftar rumah sakit rujukan di kotamu",
           "assets/images/hospital_illustration.png",
           () {
             Navigator.pushNamed(context, ProvinceListPage.ROUTE_NAME);
@@ -339,7 +339,7 @@ class _HomePageState extends State<HomePage> {
         ),
         informarionListItem(
           "Berita Kesehatan Indonesia",
-          "lihat berita kesehatan di Indonesia",
+          "Lihat berita kesehatan di Indonesia",
           "assets/images/news_illustration.png",
           () {
             Navigator.pushNamed(context, NewsListPage.ROUTE_NAME);

@@ -58,6 +58,7 @@ class _CityListPageState extends State<CityListPage> {
               } else if (data.cityState == RequestState.Loaded) {
                 return Expanded(
                   child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
                     itemCount: data.city.length,
                     itemBuilder: (BuildContext context, int index) {
                       if (editingController.text.isEmpty) {

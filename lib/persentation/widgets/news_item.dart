@@ -70,7 +70,11 @@ class _NewsItemState extends State<NewsItem> {
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
         ),
-        subtitle: Text("Annisa Karnesyia"),
+        subtitle: Text(
+          widget.article.author!,
+          maxLines: 1,
+          overflow: TextOverflow.clip,
+        ),
         trailing: IconButton(
           onPressed: () {},
           icon: Icon(Icons.favorite_border_rounded, color: kRed),
