@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone_apps/common/constants.dart';
 import 'package:capstone_apps/domain/entities/articles.dart';
 import 'package:flutter/material.dart';
@@ -54,10 +55,13 @@ class _NewsItemState extends State<NewsItem> {
         contentPadding: EdgeInsets.all(10),
         leading: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(7)),
-          child: Image.asset(
-            "assets/images/news_placeholder.png",
-            fit: BoxFit.cover,
+          child: CachedNetworkImage(
+            imageUrl: "${widget.article.urlToImage}",
             width: 80,
+            placeholder: (context, url) => Center(
+              child: CircularProgressIndicator(),
+            ),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
         ),
         title: Text(
