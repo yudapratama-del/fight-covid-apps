@@ -5,11 +5,13 @@ import 'package:capstone_apps/persentation/pages/city_list_page.dart';
 import 'package:capstone_apps/persentation/pages/home_page.dart';
 import 'package:capstone_apps/persentation/pages/hospital_detail_page.dart';
 import 'package:capstone_apps/persentation/pages/hospital_list_page.dart';
+import 'package:capstone_apps/persentation/pages/login_page.dart';
 import 'package:capstone_apps/persentation/pages/main_page.dart';
 import 'package:capstone_apps/persentation/pages/news_detail_page.dart';
 import 'package:capstone_apps/persentation/pages/news_list_page.dart';
 import 'package:capstone_apps/persentation/pages/profile_page.dart';
 import 'package:capstone_apps/persentation/pages/province_list_page.dart';
+import 'package:capstone_apps/persentation/pages/register_page.dart';
 import 'package:capstone_apps/persentation/providers/botttom_navbar_notifer.dart';
 import 'package:capstone_apps/persentation/providers/covid_notifier.dart';
 import 'package:capstone_apps/persentation/providers/location_notifier.dart';
@@ -54,12 +56,20 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Capston Project',
-        home: MainPage(),
+        home: LoginPage(),
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case MainPage.ROUTE_NAME:
               return CupertinoPageRoute(
                 builder: (_) => MainPage(),
+              );
+            case LoginPage.ROUTE_NAME:
+              return CupertinoPageRoute(
+                builder: (_) => LoginPage(),
+              );
+            case RegisterPage.ROUTE_NAME:
+              return CupertinoPageRoute(
+                builder: (_) => RegisterPage(),
               );
             case HomePage.ROUTE_NAME:
               return CupertinoPageRoute(
