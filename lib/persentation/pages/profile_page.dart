@@ -1,12 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone_apps/common/api_key.dart';
 import 'package:capstone_apps/common/constants.dart';
+import 'package:capstone_apps/persentation/pages/login_page.dart';
+import 'package:capstone_apps/persentation/providers/auth_notifer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   static const ROUTE_NAME = "/profile-page";
 
-  const ProfilePage({Key? key}) : super(key: key);
+  ProfilePage({Key? key}) : super(key: key);
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -35,32 +41,40 @@ class ProfilePage extends StatelessWidget {
                 SizedBox(
                   width: 12,
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Jhon Doe",
-                        maxLines: 1,
-                        overflow: TextOverflow.clip,
-                        style: kSubtitle.copyWith(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                        ),
+                Consumer<AuthNotifer>(
+                  builder: (context, state, _) {
+                    return Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            state.usersSignIn!.name!,
+                            maxLines: 1,
+                            overflow: TextOverflow.clip,
+                            style: kSubtitle.copyWith(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            state.usersSignIn!.email!,
+                            maxLines: 1,
+                            overflow: TextOverflow.clip,
+                            style: kSubtitle.copyWith(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "Jhone@gmail.com",
-                        maxLines: 1,
-                        overflow: TextOverflow.clip,
-                        style: kSubtitle.copyWith(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () async {
+                    await _auth.signOut();
+                    Navigator.pushReplacementNamed(
+                        context, LoginPage.ROUTE_NAME);
+                  },
                   child: Icon(
                     Icons.exit_to_app,
                     color: kBlack,
@@ -87,9 +101,7 @@ class ProfilePage extends StatelessWidget {
             children: [
               Text(
                 text,
-                style: kSubtitle.copyWith(
-                  fontSize: 13,
-                ),
+                style: kSubtitle,
               ),
               Icon(
                 Icons.chevron_right,
