@@ -12,15 +12,20 @@ import 'package:capstone_apps/persentation/pages/news_list_page.dart';
 import 'package:capstone_apps/persentation/pages/profile_page.dart';
 import 'package:capstone_apps/persentation/pages/province_list_page.dart';
 import 'package:capstone_apps/persentation/pages/register_page.dart';
+import 'package:capstone_apps/persentation/providers/auth_notifer.dart';
 import 'package:capstone_apps/persentation/providers/botttom_navbar_notifer.dart';
 import 'package:capstone_apps/persentation/providers/covid_notifier.dart';
 import 'package:capstone_apps/persentation/providers/location_notifier.dart';
 import 'package:capstone_apps/persentation/providers/news_notifier.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(MyApp());
   getIt.init();
 }
@@ -50,6 +55,12 @@ class MyApp extends StatelessWidget {
             getHospital: getIt.getIt(),
             getDetailHospital: getIt.getIt(),
             getMapHospital: getIt.getIt(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AuthNotifer(
+            signInUser: getIt.getIt(),
+            signUpUser: getIt.getIt(),
           ),
         ),
       ],

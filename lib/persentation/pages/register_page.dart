@@ -1,16 +1,26 @@
 import 'package:capstone_apps/common/constants.dart';
-import 'package:capstone_apps/persentation/pages/main_page.dart';
+import 'package:capstone_apps/common/state_enum.dart';
+import 'package:capstone_apps/domain/entities/user.dart';
+import 'package:capstone_apps/persentation/providers/auth_notifer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   RegisterPage({Key? key}) : super(key: key);
 
   static const ROUTE_NAME = "/register-page";
 
+  @override
+  _RegisterPageState createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController userNameCtrl = TextEditingController();
   final TextEditingController userEmailCtrl = TextEditingController();
   final TextEditingController userAddressCtrl = TextEditingController();
   final TextEditingController userPasswordCtrl = TextEditingController();
+
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -133,29 +143,75 @@ class RegisterPage extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
-          OutlinedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, MainPage.ROUTE_NAME);
+          Consumer<AuthNotifer>(
+            builder: (context, state, _) {
+              if (state.userSignUpState == RequestState.Loading) {
+                return Center(child: CircularProgressIndicator());
+              } else if (state.userSignUpState == RequestState.Error) {
+                return Text(
+                  state.msg!,
+                  style: kBodyText.copyWith(color: kRed),
+                  textAlign: TextAlign.center,
+                );
+              } else {
+                return SizedBox();
+              }
             },
-            style: OutlinedButton.styleFrom(
-              padding: EdgeInsets.symmetric(
-                vertical: 15,
-                horizontal: 60,
-              ),
-              primary: kWhite,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              side: BorderSide(
-                color: kWhite,
-                width: 2,
-              ),
-            ),
-            child: Text(
-              "Register",
-              style: kHeading6,
-            ),
           ),
+          SizedBox(
+            height: 20,
+          ),
+          _isLoading
+              ? SizedBox()
+              : OutlinedButton(
+                  onPressed: () async {
+                    setState(() {
+                      _isLoading = true;
+                    });
+
+                    Users user = Users(
+                      email: userEmailCtrl.text,
+                      name: userNameCtrl.text,
+                      address: userAddressCtrl.text,
+                    );
+
+                    var isSignUp =
+                        await Provider.of<AuthNotifer>(context, listen: false)
+                            .registerUser(
+                      user,
+                      userPasswordCtrl.text,
+                    );
+
+                    if (isSignUp) {
+                      Navigator.pop(context);
+                      setState(() {
+                        _isLoading = false;
+                      });
+                    }
+
+                    setState(() {
+                      _isLoading = false;
+                    });
+                  },
+                  style: OutlinedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 15,
+                      horizontal: 60,
+                    ),
+                    primary: kWhite,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    side: BorderSide(
+                      color: kWhite,
+                      width: 2,
+                    ),
+                  ),
+                  child: Text(
+                    "Register",
+                    style: kHeading6,
+                  ),
+                ),
           SizedBox(
             height: 5,
           ),

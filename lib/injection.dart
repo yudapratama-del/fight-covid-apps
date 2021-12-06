@@ -1,11 +1,14 @@
+import 'package:capstone_apps/data/datasources/auth_remote_data_source.dart';
 import 'package:capstone_apps/data/datasources/covid_remote_data_source.dart';
 import 'package:capstone_apps/data/datasources/db/database_helper.dart';
 import 'package:capstone_apps/data/datasources/location_remote_data_source.dart';
 import 'package:capstone_apps/data/datasources/news_local_remote_data_source.dart';
 import 'package:capstone_apps/data/datasources/news_remote_data_source.dart';
+import 'package:capstone_apps/data/repositories/auth_repository_impl.dart';
 import 'package:capstone_apps/data/repositories/covid_repository_impl.dart';
 import 'package:capstone_apps/data/repositories/location_repository_impl.dart';
 import 'package:capstone_apps/data/repositories/news_repository_impl.dart';
+import 'package:capstone_apps/domain/repositories/auth_repository.dart';
 import 'package:capstone_apps/domain/repositories/covid_repository.dart';
 import 'package:capstone_apps/domain/repositories/location_repository.dart';
 import 'package:capstone_apps/domain/repositories/news_repository.dart';
@@ -20,6 +23,9 @@ import 'package:capstone_apps/domain/usecases/get_news.dart';
 import 'package:capstone_apps/domain/usecases/get_province.dart';
 import 'package:capstone_apps/domain/usecases/remove_bookmark.dart';
 import 'package:capstone_apps/domain/usecases/save_bookmark.dart';
+import 'package:capstone_apps/domain/usecases/sign_in_user.dart';
+import 'package:capstone_apps/domain/usecases/sign_up_user.dart';
+import 'package:capstone_apps/persentation/providers/auth_notifer.dart';
 import 'package:capstone_apps/persentation/providers/covid_notifier.dart';
 import 'package:capstone_apps/persentation/providers/location_notifier.dart';
 import 'package:capstone_apps/persentation/providers/news_notifier.dart';
@@ -53,6 +59,12 @@ void init() {
       getMapHospital: getIt(),
     ),
   );
+  getIt.registerFactory(
+    () => AuthNotifer(
+      signInUser: getIt(),
+      signUpUser: getIt(),
+    ),
+  );
 
   /// Repository
   getIt.registerLazySingleton<CovidRepository>(
@@ -69,6 +81,11 @@ void init() {
     () => NewsRepositoryImpl(
       newsRemoteDataSource: getIt(),
       newsLocalDataSource: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(
+      authRemotDataSource: getIt(),
     ),
   );
 
@@ -93,6 +110,9 @@ void init() {
       databaseHelper: getIt(),
     ),
   );
+  getIt.registerLazySingleton<AuthRemotDataSource>(
+    () => AuthRemotDataSourceImpl(),
+  );
 
   /// Usecase
   getIt.registerLazySingleton(() => GetDataCovid(getIt()));
@@ -106,6 +126,8 @@ void init() {
   getIt.registerLazySingleton(() => GetBookmark(getIt()));
   getIt.registerLazySingleton(() => GetBookmarkStatus(getIt()));
   getIt.registerLazySingleton(() => RemoveBookmark(getIt()));
+  getIt.registerLazySingleton(() => SignInUser(getIt()));
+  getIt.registerLazySingleton(() => SignUpUser(getIt()));
 
   ///Helper
   getIt.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());

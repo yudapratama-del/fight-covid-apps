@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "334949965858",
+    "project_id": "fight-covid-a1282",
+    "storage_bucket": "fight-covid-a1282.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334949965858:android:bfc39aa549bdeca60f2a7b",
+        "android_client_info": {
+          "package_name": "com.dicoding.fight_covid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334949965858-1jgnq77vslphlpt1h2772k32kqfl2o1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_bS5qQiyUxFJ4iJMomGu4qZCic5A2h7E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334949965858-1jgnq77vslphlpt1h2772k32kqfl2o1k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
