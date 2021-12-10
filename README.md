@@ -29,8 +29,32 @@ Profile Page |
 <img src="/assets/images/documentation/profile_page.png" width=300/> |
 
 <br>
+<br>
 
-## :books: API 
+## :computer: PROGRAMMING LANGUAGE & FRAMEWORK
+- #### Dart & Flutter
+
+## :books: LIBRARY
+- cached_network_image
+- cupertino_icons
+- dartz
+- equatable
+- get_it
+- google_fonts
+- http
+- intl
+- logger
+- provider
+- url_launcher
+- webview_flutter
+- sqflite
+- path_provider
+- firebase_core
+- firebase_auth
+- cloud_firestore
+- flutter_launcher_icons
+
+## :scroll: API 
 - [Data Covid Indonesia](https://data.covid19.go.id/public/api/update.json)
 - [Rumah Sakit rujukan covid di kota kota di Indonesia serta ketersediaan bed nya](https://github.com/satyawikananda/rs-bed-covid-indo-api)
 - [Berita Kesehatan Indonesia](https://newsapi.org/s/indonesia-health-news-api)
@@ -42,5 +66,6 @@ Profile Page |
 - <a href='https://www.freepik.com/vectors/people'>People vector created by stories - www.freepik.com</a>
 - <a href="https://www.freepik.com/vectors/business">Business vector created by jcomp - www.freepik.com</a>
 - <a href="https://www.freepik.com/vectors/infographic">Infographic vector created by vectorjuice - www.freepik.com</a>
+- <a href="https://www.freepik.com/vectors/data">Data vector created by stories - www.freepik.com</a>
 
 <br>
