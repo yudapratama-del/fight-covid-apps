@@ -8,6 +8,10 @@ type in your terminal `flutter build apk`
 ## :sparkles: App Highlight
 <img src="/assets/images/documentation/main highlight.png" width=600/>
 
+Login Page | Register Page
+:----------:|:-------------:|
+<img src="/assets/images/documentation/login_page.png" width=250/> | <img src="/assets/images/documentation/register_page.png" width=250/> |
+
 Home Page |
 :----------:|
 <img src="/assets/images/documentation/home_page.png" width=300/> |
