@@ -25,19 +25,12 @@ class ProfilePage extends StatelessWidget {
             padding: EdgeInsets.all(30),
             child: Row(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(32),
-                  child: CachedNetworkImage(
-                    imageUrl: IMAGE_URL,
-                    height: 64,
-                    width: 64,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) => Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                CircleAvatar(
+                  radius: 32,
+                  backgroundImage: AssetImage(
+                    "assets/images/person_placeholder.png",
                   ),
-                ),
+                ),                
                 SizedBox(
                   width: 12,
                 ),
